@@ -74,7 +74,7 @@ function ForgotPasswordPage({ onBackToLogin }) {
           </div>
 
           <p className="note-text">
-            จากนั้นคนใช้ <span className="highlight">ลงชื่อเข้าใช้</span>
+            จากนั้นคนใช้ <button type="button" className="switch-link" onClick={onBackToLogin}>ลงชื่อเข้าใช้</button>
           </p>
 
           <button type="submit" className="submit-button">
