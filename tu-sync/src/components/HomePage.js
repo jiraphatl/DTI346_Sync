@@ -1,12 +1,13 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import './HomePage.css';
+import FloatingActionMenu from "./FloatingActionMenu";
 
 function HomePage({ user, userData, onLogout, onUpdateUserData }) {
   const [currentDate, setCurrentDate] = useState(new Date());
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [showAddTaskModal, setShowAddTaskModal] = useState(false);
   const [newTask, setNewTask] = useState({
-    time: '10:00',
+    time: '10.00',
     title: '',
     category: 'งานทั่วไป',
     color: '#ff6f91'
@@ -98,7 +99,7 @@ function HomePage({ user, userData, onLogout, onUpdateUserData }) {
     };
 
     onUpdateUserData(updatedData);
-    setNewTask({ time: '10:00', title: '', category: 'งานทั่วไป', color: '#ff6f91' });
+    setNewTask({ time: '10.00', title: '', category: 'งานทั่วไป', color: '#ff6f91' });
     setShowAddTaskModal(false);
   };
 
@@ -121,6 +122,23 @@ function HomePage({ user, userData, onLogout, onUpdateUserData }) {
     };
     onUpdateUserData(updatedData);
   };
+
+  // ========= ฟังก์ชันสำหรับเมนู 3 ปุ่มของ FloatingActionMenu =========
+  const handleCreateOnlineMeeting = () => {
+    // เดี๋ยวค่อยเปลี่ยนเป็นไปหน้า "สร้างนัดหมายออนไลน์"
+    alert("ไปหน้าสร้างนัดหมายออนไลน์");
+  };
+
+  const handleCreateEvent = () => {
+    // เดี๋ยวค่อยเปลี่ยนเป็นไปหน้า "สร้างกิจกรรมใหม่"
+    alert("ไปหน้าสร้างกิจกรรมใหม่");
+  };
+
+  const handleAddAssignmentMenu = () => {
+    // ใช้ modal เดิมที่เพื่อนสร้างในการเพิ่มงาน
+    setShowAddTaskModal(true);
+  };
+  // ===============================================================
 
   return (
     <div className="homepage">
@@ -285,12 +303,12 @@ function HomePage({ user, userData, onLogout, onUpdateUserData }) {
         </button>
       </nav>
 
-      {/* Floating Action Button */}
-      <button className="fab" onClick={() => setShowAddTaskModal(true)}>
-        <svg viewBox="0 0 24 24" width="28" height="28">
-          <path fill="white" d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/>
-        </svg>
-      </button>
+      {/* ปุ่มลอยแบบ 3 เมนู แทนปุ่ม + เดิม */}
+      <FloatingActionMenu
+        onCreateOnlineMeeting={handleCreateOnlineMeeting}
+        onCreateEvent={handleCreateEvent}
+        onAddAssignment={handleAddAssignmentMenu}
+      />
 
       {/* Add Task Modal */}
       {showAddTaskModal && (
