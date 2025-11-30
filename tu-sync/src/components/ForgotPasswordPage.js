@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import './ForgotPasswordPage.css';
 
-function ForgotPasswordPage({ onBackToLogin }) {
+function ForgotPasswordPage({ onSwitchToLogin, onClose }) {
   const [email, setEmail] = useState('');
   const [showSuccess, setShowSuccess] = useState(false);
 
@@ -19,7 +19,10 @@ function ForgotPasswordPage({ onBackToLogin }) {
 
   const handleBackToLogin = () => {
     setShowSuccess(false);
-    onBackToLogin();
+    setEmail('');
+    if (onSwitchToLogin) {
+      onSwitchToLogin();
+    }
   };
 
   if (showSuccess) {
@@ -74,7 +77,7 @@ function ForgotPasswordPage({ onBackToLogin }) {
           </div>
 
           <p className="note-text">
-            จากนั้นคนใช้ <button type="button" className="switch-link" onClick={onBackToLogin}>ลงชื่อเข้าใช้</button>
+              จากนั้นคุณสามารถ <button type="button" className="switch-link" onClick={handleBackToLogin}>ลงชื่อเข้าใช้</button>
           </p>
 
           <button type="submit" className="submit-button">
