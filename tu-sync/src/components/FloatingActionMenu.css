@@ -1,0 +1,67 @@
+/* กลุ่มปุ่มลอยมุมขวาล่าง เหนือทุกอย่าง */
+.fab-wrapper {
+  position: fixed;
+  bottom: 24px; /* ถ้าทับ bottom nav เปลี่ยนเป็น 80px ได้ */
+  right: 24px;
+  z-index: 9999;
+
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+/* กล่องเมนู 3 ปุ่ม เรียงลงมา */
+.fab-menu {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 14px;
+}
+
+/* ปุ่มเมนูย่อย (3 อัน) ทรงแคปซูลสีชมพู */
+.fab-menu-item {
+  background: #ff9fc5;          /* ชมพูอ่อนเหมือนในรูป */
+  color: #ffffff;
+  border: none;
+  padding: 8px 18px;
+  border-radius: 999px;
+  font-size: 14px;
+  cursor: pointer;
+  white-space: nowrap;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.18);
+  transition: transform 0.15s ease, box-shadow 0.15s ease, opacity 0.15s ease;
+}
+
+.fab-menu-item:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 14px rgba(0, 0, 0, 0.22);
+}
+
+/* ปุ่ม + หลักสีชมพูไล่เฉด */
+.fab-main {
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  border: none;
+  cursor: pointer;
+  font-size: 40px;
+  background: linear-gradient(135deg, #ff6fa3, #ff9fc5);
+  color: white;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.25);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.fab-main:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 22px rgba(0, 0, 0, 0.3);
+}
+
+/* ตอนเปิดเมนู หมุน + เป็นเหมือนปุ่มปิด */
+.fab-main-open {
+  transform: rotate(45deg);
+}

@@ -135,14 +135,14 @@ function LoginPage({ onSwitchToRegister, onSwitchToForgot, onLoginSuccess, onClo
               className="social-button"
               onClick={() => handleSocialLogin('google')}
             >
-              <img src="https://www.google.com/favicon.ico" alt="Google" />
+              <img src="./img/google-icon.png" alt="Google" />
             </button>
             <button 
               type="button" 
               className="social-button"
               onClick={() => handleSocialLogin('teams')}
             >
-              <img src="https://www.microsoft.com/favicon.ico" alt="Microsoft" />
+              <img src="./img/teams-icon.png" alt="teams" />
             </button>
           </div>
 
