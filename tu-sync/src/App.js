@@ -5,7 +5,10 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-d
 import LogoPage from './components/LogoPage';
 import AboutUS from './components/AboutUSPage';
 import HomePage from './components/HomePage';
-import Setting from './components/Setting'; // 1. เพิ่มบรรทัดนี้ (ตรวจสอบ path ให้ถูกว่าไฟล์อยู่ไหน)
+import Setting from './components/Setting';
+import CalendarPage from './components/CalendarPage';
+import NotificationsPage from './components/NotificationsPage'; // 1. เพิ่มบรรทัดนี้
+import { DataProvider } from './DataContext'; // 1. Import ไฟล์ที่เพิ่งสร้าง (เช็ค path ให้ถูกนะครับ)
 
 function App() {
   const [user, setUser] = useState(null);
@@ -13,9 +16,8 @@ function App() {
 
   // ฟังก์ชันจำลองการ Login
   const handleLogin = (email) => {
-    // ในสถานการณ์จริงอาจรับ Object user มาจาก API
     const username = email.split('@')[0];
-    setUser({ username, email, name: username }); // Set User เพื่อให้ Route ทำงาน
+    setUser({ username, email, name: username });
   };
 
   const handleLogout = () => {
@@ -24,14 +26,13 @@ function App() {
   };
 
   return (
+    <DataProvider>
     <Router>
       <Routes>
-        {/* Route: หน้าแรก (Landing) */}
         <Route 
           path="/" 
           element={
             user ? (
-              // ✅ 1. ถ้า Login แล้ว ให้เด้งไปหน้า Home ทันที
               <Navigate to="/home" replace />
             ) : showLogo ? (
               <LogoPage onGetStarted={() => setShowLogo(false)} />
@@ -44,15 +45,12 @@ function App() {
           } 
         />
         
-        {/* Route: หน้าหลัก (Protected) */}
         <Route 
           path="/home" 
           element={
             user ? (
-              // ✅ 2. แสดง HomePage และส่ง user prop เข้าไป
               <HomePage user={user} onLogout={handleLogout} />
             ) : (
-              // ถ้ายังไม่ login ให้ดีดกลับไปหน้าแรก
               <Navigate to="/" replace />
             )
           } 
@@ -62,18 +60,40 @@ function App() {
           path="/settings" 
           element={
             user ? (
-              // --- แก้ไขตรงนี้: ส่ง user และ onLogout เข้าไป ---
               <Setting user={user} onLogout={handleLogout} /> 
-              // ---------------------------------------------
             ) : (
               <Navigate to="/" replace />
             )
           } 
         />
-        {/* Redirect เส้นทางอื่นๆ กลับหน้าแรก */}
+
+        <Route 
+          path="/calendar" 
+          element={
+            user ? (
+              <CalendarPage user={user} onLogout={handleLogout} /> 
+            ) : (
+              <Navigate to="/" replace />
+            )
+          } 
+        />
+
+        {/* 2. เพิ่ม Route สำหรับหน้าแจ้งเตือน ตรงนี้ครับ */}
+        <Route 
+          path="/notifications" 
+          element={
+            user ? (
+              <NotificationsPage /> 
+            ) : (
+              <Navigate to="/" replace />
+            )
+          } 
+        />
+
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </Router>
+    </DataProvider>
   );
 }
 
