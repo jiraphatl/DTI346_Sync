@@ -1,30 +1,29 @@
-/* นำเข้าฟอนต์สวยๆ จาก Google Fonts */
+/* ===== นำเข้าฟอนต์ ===== */
 @import url('https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;600;700&display=swap');
 
-/* Reset ค่าเริ่มต้น เพื่อไม่ให้มีขอบขาวและ Scrollbar */
-body, html {
+/* ===== Reset ค่าพื้นฐาน ===== */
+* {
   margin: 0;
   padding: 0;
-  width: 100%;
-  height: 100%;
-  overflow: hidden; /* บังคับไม่ให้มีแถบเลื่อน */
-  font-family: 'Prompt', sans-serif;
+  box-sizing: border-box;
 }
 
-/* Container หลัก */
+body {
+  font-family: 'Prompt', sans-serif;
+  overflow: hidden;
+}
+
+/* ===== Container หลัก ===== */
 .about-us-container {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  height: 100vh; /* เต็มจอพอดีเป๊ะ */
+  height: 100vh;
   padding: 20px;
-  box-sizing: border-box; /* คิด padding รวมในความสูง */
-  background: linear-gradient(180deg, #fff0f5 0%, #ffffff 100%); /* พื้นหลังชมพูอ่อนไล่สี */
-  position: relative;
-  overflow: hidden;
+  background: linear-gradient(180deg, #fff0f5 0%, #ffffff 100%);
 }
 
-/* --- ส่วนเนื้อหา (รูป + ข้อความ) --- */
+/* ===== ส่วนเนื้อหา ===== */
 .content-wrapper {
   flex: 1;
   display: flex;
@@ -33,40 +32,27 @@ body, html {
   justify-content: center;
   text-align: center;
   padding-bottom: 20px;
-  animation: fadeIn 0.8s ease-out;
 }
 
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(20px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-/* กล่องรูปภาพ */
+/* รูปภาพ */
 .illustration-container {
   width: 100%;
   max-width: 350px;
-  height: 40vh; /* สูง 40% ของหน้าจอ */
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  height: 40vh;
   margin-bottom: 30px;
-  position: relative;
 }
 
 .slide-image {
   width: 100%;
   height: 100%;
   object-fit: contain;
-  /* เงาใต้รูปภาพ */
-  filter: drop-shadow(0 15px 25px rgba(255, 111, 145, 0.2));
-  transition: transform 0.5s ease;
+  filter: drop-shadow(0 10px 20px rgba(255, 111, 145, 0.2));
+  transition: transform 0.3s;
 }
 
-.slide-image:hover {
-  transform: scale(1.02);
-}
 
-/* ส่วนข้อความ */
+
+/* ข้อความ */
 .text-content {
   max-width: 500px;
   padding: 0 20px;
@@ -77,27 +63,24 @@ body, html {
   font-weight: 600;
   color: #333;
   margin-bottom: 15px;
-  line-height: 1.3;
 }
 
 .slide-highlight {
   color: #ff6f91;
   font-weight: 700;
   font-size: 34px;
-  display: block; /* ขึ้นบรรทัดใหม่ */
+  display: block;
   margin-top: 5px;
-  text-shadow: 0 2px 10px rgba(255, 111, 145, 0.2);
 }
 
 .slide-description {
   font-size: 16px;
   color: #666;
   line-height: 1.6;
-  font-weight: 400;
   margin-top: 15px;
 }
 
-/* --- ส่วนควบคุมด้านล่าง (ปุ่มต่างๆ) --- */
+/* ===== ส่วนปุ่มด้านล่าง ===== */
 .button-container {
   display: flex;
   align-items: center;
@@ -105,168 +88,52 @@ body, html {
   width: 100%;
   max-width: 500px;
   margin: 0 auto;
-  padding: 10px 0 40px; /* เว้นระยะขอบล่าง */
+  padding: 10px 0 40px;
 }
 
 .nav-btn-wrapper {
-  width: 70px; /* จองพื้นที่ให้ปุ่ม */
+  width: 70px;
   display: flex;
   justify-content: center;
 }
 
-/* =========================================
-   ✨ ปุ่มลูกศร (Navigation Buttons) - ใหม่!
-   ========================================= */
+/* ปุ่มลูกศร */
 .nav-button {
   width: 60px;
   height: 60px;
   border-radius: 50%;
-  
-  /* พื้นหลังสีชมพูไล่เฉด */
-  background: linear-gradient(135deg, #ff6f91 0%, #ff9eb5 100%);
-  color: white;
-  
-  /* ขอบสีขาวหนาๆ ตัดกับพื้นหลัง */
+  background: linear-gradient(135deg, #ff6f91, #ff9eb5);
   border: 3px solid rgba(255, 255, 255, 0.9);
-  
+  color: white;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  
-  /* เงาฟุ้งๆ (Glow Effect) */
-  box-shadow: 0 10px 25px rgba(255, 111, 145, 0.4);
-  
-  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); /* เด้งดึ๋ง */
-  position: relative;
-  overflow: hidden;
-  z-index: 10;
+  box-shadow: 0 8px 20px rgba(255, 111, 145, 0.3);
+  transition: all 0.3s;
 }
 
-/* แสงวิบวับพาดผ่านปุ่ม */
-.nav-button::after {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
-  transition: 0.5s;
-}
 
-/* Hover: ขยายใหญ่ + หมุนนิดๆ */
-.nav-button:hover {
-  transform: scale(1.15) rotate(5deg);
-  box-shadow: 0 15px 35px rgba(255, 111, 145, 0.6);
-  border-color: #fff;
-}
-
-.nav-button:hover::after {
-  left: 100%; /* เลื่อนแสงผ่านปุ่ม */
-}
-
-/* Active: กดแล้วยุบ */
-.nav-button:active {
-  transform: scale(0.95);
-  box-shadow: 0 5px 15px rgba(255, 111, 145, 0.3);
-}
-
-/* =========================================
-   ✨ ปุ่มเริ่มต้นใช้งาน (Start Button) - ใหม่!
-   ========================================= */
+/* ปุ่มเริ่มต้น */
 .start-button {
-  /* พื้นหลังไล่สี 3 ระดับ เพื่อทำ Animation ไหลๆ */
-  background: linear-gradient(45deg, #ff6f91, #ff8fa3, #ff6f91);
-  background-size: 200% auto;
-  
+  background: linear-gradient(45deg, #ff6f91, #ff8fa3);
   color: white;
-  border: none;
+  border: 3px solid rgba(255, 255, 255, 0.3);
   padding: 18px 50px;
   border-radius: 50px;
   font-size: 20px;
   font-weight: 700;
-  letter-spacing: 1px;
   cursor: pointer;
-  
-  /* ขอบขาวจางๆ ให้ดูมีมิติ */
-  border: 4px solid rgba(255, 255, 255, 0.3);
-  background-clip: padding-box;
-  
-  /* เงาชุดใหญ่ ให้ดูพรีเมียมและฟุ้ง */
-  box-shadow: 
-    0 10px 30px rgba(255, 111, 145, 0.4),
-    0 0 0 4px rgba(255, 255, 255, 0.2); /* วงแหวนเงารอบนอก */
-    
-  transition: all 0.4s ease;
-  animation: gradientMove 3s infinite linear; /* สั่งให้สีไหล */
+  box-shadow: 0 8px 25px rgba(255, 111, 145, 0.4);
+  transition: all 0.3s;
 }
 
-@keyframes gradientMove {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
-}
-
-/* Hover Start Button */
-.start-button:hover {
-  transform: translateY(-5px);
-  box-shadow: 
-    0 20px 40px rgba(255, 111, 145, 0.6),
-    0 0 0 6px rgba(255, 255, 255, 0.4);
-}
-
-/* Active Start Button */
 .start-button:active {
-  transform: translateY(2px) scale(0.98);
-  box-shadow: 0 5px 15px rgba(255, 111, 145, 0.3);
+  transform: translateY(1px);
 }
 
-/* =========================================
-   ✨ ปุ่ม "ลุยเลย!" (หน้าสุดท้าย) - ดีไซน์ใหม่
-   ========================================= */
 
-/* ปุ่ม "ลุยเลย!" แบบ Minimal (เล็ก กะทัดรัด) */
-.final-cta-button {
-  /* พื้นหลังสีชมพูเรียบๆ หรือ Gradient เบาๆ */
-  background: linear-gradient(90deg, #ff6f91 0%, #ff8fa3 100%);
-  
-  /* จัด layout ให้เป็นบรรทัดเดียว */
-  display: inline-flex; /* ใช้ inline-flex เพื่อให้ขนาดพอดีคำ */
-  align-items: center;
-  justify-content: center;
-  gap: 2px; /* ระยะห่างระหว่างตัวหนังสือกับไอคอน */
-  
-  /* ขนาดกะทัดรัด */
-  color: white;
-  border: none;
-  padding: 10px 24px; /* ลด Padding ลงให้ปุ่มเตี้ยลง */
-  border-radius: 30px; /* ทรงแคปซูลมนๆ */
-  
-  /* ตัวหนังสือ */
-  font-family: 'Prompt', sans-serif;
-  font-size: 16px; /* ลดขนาดตัวอักษร */
-  font-weight: 500; /* ไม่หนาเกินไป */
-  white-space: nowrap; /* บังคับไม่ให้ตัดบรรทัด */
-  
-  cursor: pointer;
-  box-shadow: 0 4px 12px rgba(255, 111, 145, 0.3); /* เงาจางๆ พอมีมิติ */
-  transition: all 0.2s ease;
-}
-
-/* Hover: ขยับนิดเดียวพอ */
-.final-cta-button:hover {
-  transform: translateY(-2px);
-  background: #ff6f91; /* เปลี่ยนเป็นสีพื้นเรียบๆ ตอนชี้ */
-  box-shadow: 0 6px 15px rgba(255, 111, 145, 0.4);
-}
-
-/* Active: กดยุบลง */
-.final-cta-button:active {
-  transform: scale(0.96);
-}
-
-/* จุด Progress Indicator */
+/* จุด Progress */
 .center-action {
   flex: 1;
   display: flex;
@@ -283,8 +150,8 @@ body, html {
   height: 10px;
   border-radius: 50%;
   background-color: #ffd1dc;
-  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
   cursor: pointer;
+  transition: all 0.3s;
 }
 
 .progress-dot.active {
@@ -294,24 +161,19 @@ body, html {
   box-shadow: 0 0 10px rgba(255, 111, 145, 0.4);
 }
 
-/* =========================================
-   Modal Styling (คงไว้เหมือนเดิมเพื่อให้ใช้งานได้)
-   ========================================= */
+/* ===== Modal ===== */
 .modal-overlay {
   position: fixed;
-  top: 0; left: 0; right: 0; bottom: 0;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
   background-color: rgba(0, 0, 0, 0.5);
   display: flex;
   align-items: flex-end;
   justify-content: center;
   z-index: 1000;
-  animation: modalFadeIn 0.3s ease;
   backdrop-filter: blur(5px);
-}
-
-@keyframes modalFadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
 }
 
 .modal-content {
@@ -320,52 +182,35 @@ body, html {
   width: 100%;
   max-width: 500px;
   padding: 20px 30px 40px;
-  animation: modalSlideUp 0.3s ease;
   box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.1);
   max-height: 90vh;
   overflow-y: auto;
 }
 
-@keyframes modalSlideUp {
-  from { transform: translateY(100%); }
-  to { transform: translateY(0); }
-}
-
 .modal-handle {
-  width: 50px; height: 5px;
+  width: 50px;
+  height: 5px;
   background-color: #d0d0d0;
   border-radius: 3px;
   margin: 0 auto 20px;
 }
 
-/* =========================================
-   📱 RESPONSIVE DESIGN - สำหรับทุกขนาดหน้าจอ
-   ========================================= */
+/* ===== Responsive Design ===== */
 
-/* 🔹 Mobile Devices (320px - 480px) */
+/* มือถือ (จอเล็ก) */
 @media (max-width: 480px) {
   .about-us-container {
-    padding: 15px 25px;
-  }
-
-  .content-wrapper {
-    padding-bottom: 15px;
+    padding: 15px;
   }
 
   .illustration-container {
     max-width: 85%;
     height: 30vh;
-    margin: 0 auto 20px;
-  }
-
-  .text-content {
-    padding: 0 10px;
-    max-width: 100%;
+    margin-bottom: 20px;
   }
 
   .slide-title {
     font-size: 22px;
-    margin-bottom: 10px;
   }
 
   .slide-highlight {
@@ -374,29 +219,20 @@ body, html {
 
   .slide-description {
     font-size: 14px;
-    line-height: 1.5;
-    padding: 0 5px;
   }
 
   .button-container {
-    padding: 10px 20px 40px;
-    max-width: 80%;
-  }
-
-  .nav-btn-wrapper {
-    width: 55px;
+    max-width: 90%;
   }
 
   .nav-button {
     width: 50px;
     height: 50px;
-    border-width: 2px;
   }
 
   .start-button {
     padding: 14px 30px;
     font-size: 17px;
-    border-width: 3px;
   }
 
   .final-cta-button {
@@ -414,21 +250,15 @@ body, html {
   }
 }
 
-/* 🔹 Tablets/iPads (481px - 768px) */
+/* แท็บเล็ต */
 @media (min-width: 481px) and (max-width: 768px) {
   .about-us-container {
-    padding: 25px 40px 40px; /* เพิ่ม padding ด้านล่าง */
+    padding: 25px;
   }
 
   .illustration-container {
     max-width: 400px;
     height: 35vh;
-    margin-bottom: 25px;
-  }
-
-  .text-content {
-    max-width: 550px;
-    padding: 0 25px;
   }
 
   .slide-title {
@@ -441,13 +271,6 @@ body, html {
 
   .slide-description {
     font-size: 17px;
-  }
-
-  .button-container {
-    max-width: 550px;
-    padding: 15px 20px 45px; /* เพิ่มระยะห่างจากขอบ */
-    max-width: 80%;
-
   }
 
   .nav-button {
@@ -463,23 +286,18 @@ body, html {
   .final-cta-button {
     padding: 11px 26px;
     font-size: 17px;
-    margin-right: 12px; /* เพิ่มระยะห่างจากขอบขวา */
   }
 }
 
-/* 🔹 Laptops/Small Screens (769px - 1024px) */
+/* แล็ปท็อป */
 @media (min-width: 769px) and (max-width: 1024px) {
   .about-us-container {
-    padding: 30px 50px;
+    padding: 30px;
   }
 
   .illustration-container {
     max-width: 420px;
     height: 38vh;
-  }
-
-  .text-content {
-    max-width: 580px;
   }
 
   .slide-title {
@@ -490,14 +308,6 @@ body, html {
     font-size: 35px;
   }
 
-  .slide-description {
-    font-size: 17px;
-  }
-
-  .button-container {
-    max-width: 580px;
-  }
-
   .nav-button {
     width: 58px;
     height: 58px;
@@ -505,23 +315,18 @@ body, html {
 
   .start-button {
     padding: 17px 45px;
-    font-size: 20px;
   }
 }
 
-/* 🔹 Desktops/Large Screens (1025px - 1200px) */
-@media (min-width: 1025px) and (max-width: 1200px) {
+/* จอใหญ่ */
+@media (min-width: 1025px) {
   .about-us-container {
-    padding: 35px 60px;
+    padding: 40px;
   }
 
   .illustration-container {
-    max-width: 380px;
+    max-width: 400px;
     height: 42vh;
-  }
-
-  .text-content {
-    max-width: 520px;
   }
 
   .slide-title {
@@ -532,40 +337,8 @@ body, html {
     font-size: 36px;
   }
 
-  .button-container {
-    max-width: 520px;
-  }
-}
-
-/* 🔹 Extra-large Devices (1201px and above) */
-@media (min-width: 1201px) {
-  .about-us-container {
-    padding: 40px 80px;
-  }
-
-  .illustration-container {
-    max-width: 400px;
-    height: 45vh;
-  }
-
-  .text-content {
-    max-width: 600px;
-  }
-
-  .slide-title {
-    font-size: 32px;
-  }
-
-  .slide-highlight {
-    font-size: 38px;
-  }
-
   .slide-description {
     font-size: 18px;
-  }
-
-  .button-container {
-    max-width: 600px;
   }
 
   .nav-button {
@@ -579,16 +352,11 @@ body, html {
   }
 }
 
-/* 🔹 Landscape Mode สำหรับมือถือ (แนวนอน) */
+/* โหมดแนวนอน (มือถือ) */
 @media (max-height: 500px) and (orientation: landscape) {
-  .about-us-container {
-    padding: 10px 30px 25px; /* เพิ่ม padding ด้านล่าง */
-  }
-
   .content-wrapper {
     flex-direction: row;
     gap: 30px;
-    padding-bottom: 10px;
   }
 
   .illustration-container {
@@ -614,10 +382,6 @@ body, html {
     font-size: 13px;
   }
 
-  .button-container {
-    padding: 5px 20px 30px; /* เพิ่มระยะห่างจากขอบ */
-  }
-
   .nav-button {
     width: 45px;
     height: 45px;
@@ -628,3 +392,4 @@ body, html {
     font-size: 15px;
   }
 }
+
