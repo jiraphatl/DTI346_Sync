@@ -1,19 +1,30 @@
 import { db } from "./firebase";
 import { collection, addDoc, updateDoc, deleteDoc, doc } from "firebase/firestore";
 
-const eventsRef = collection(db, "events");
+// ฟังก์ชันสร้าง reference ตาม user ID
+const getEventsRef = (uid) => collection(db, "users", uid, "events");
 
-export const addEvent = async (eventData) => {
+// -------------------------------
+// CREATE Event
+// -------------------------------
+export const addEvent = async (uid, eventData) => {
+  const eventsRef = getEventsRef(uid);
   const docRef = await addDoc(eventsRef, eventData);
   return { ...eventData, event_id: docRef.id };
 };
 
-export const updateEvent = async (event_id, updatedData) => {
-  const docRef = doc(db, "events", event_id);
+// -------------------------------
+// UPDATE Event
+// -------------------------------
+export const updateEvent = async (uid, event_id, updatedData) => {
+  const docRef = doc(db, "users", uid, "events", event_id);
   await updateDoc(docRef, updatedData);
 };
 
-export const deleteEvent = async (event_id) => {
-  const docRef = doc(db, "events", event_id);
+// -------------------------------
+// DELETE Event
+// -------------------------------
+export const deleteEvent = async (uid, event_id) => {
+  const docRef = doc(db, "users", uid, "events", event_id);
   await deleteDoc(docRef);
 };
