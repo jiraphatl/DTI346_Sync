@@ -1,6 +1,13 @@
 import React, { useState } from 'react';
 import './AuthModal.css';
 import ForgotPasswordPage from './ForgotPasswordPage';
+import {
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  signInWithPopup,
+  updateProfile
+} from 'firebase/auth';
+import { auth, googleProvider } from '../firebase';
 
 // ✅ Minified SVG Icons
 const GoogleIcon = () => (
@@ -35,11 +42,14 @@ function AuthModal({ onClose, onAuthSuccess, onSwitchToForgotPassword }) {
   });
 
   const [errors, setErrors] = useState({});
+  const [submitError, setSubmitError] = useState('');
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [isAnimating, setIsAnimating] = useState(false);
 
   const switchTab = (loginState) => {
     if (isLogin === loginState) return;
     setErrors({});
+    setSubmitError('');
     setIsAnimating(true);
     setTimeout(() => {
       setIsLogin(loginState);
@@ -51,6 +61,7 @@ function AuthModal({ onClose, onAuthSuccess, onSwitchToForgotPassword }) {
     const { name, value } = e.target;
     setFormData(prev => ({ ...prev, [name]: value }));
     if (errors[name]) setErrors(prev => ({ ...prev, [name]: '' }));
+    if (submitError) setSubmitError('');
   };
 
   const validateForm = () => {
@@ -89,7 +100,24 @@ function AuthModal({ onClose, onAuthSuccess, onSwitchToForgotPassword }) {
     return newErrors;
   };
 
-  const handleSubmit = (e) => {
+  const getErrorMessage = (code) => {
+    switch (code) {
+      case 'auth/email-already-in-use':
+        return 'อีเมลนี้ถูกใช้งานอยู่แล้ว';
+      case 'auth/invalid-credential':
+      case 'auth/user-not-found':
+      case 'auth/wrong-password':
+        return 'อีเมลหรือรหัสผ่านไม่ถูกต้อง';
+      case 'auth/too-many-requests':
+        return 'พยายามเข้าสู่ระบบหลายครั้งเกินไป กรุณาลองใหม่ภายหลัง';
+      case 'auth/popup-closed-by-user':
+        return 'ปิดหน้าต่างล็อกอินก่อนเสร็จสิ้น';
+      default:
+        return 'เกิดข้อผิดพลาด กรุณาลองใหม่อีกครั้ง';
+    }
+  };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const newErrors = validateForm();
 
@@ -98,11 +126,59 @@ function AuthModal({ onClose, onAuthSuccess, onSwitchToForgotPassword }) {
       return;
     }
 
-    console.log(isLogin ? 'Logging in...' : 'Registering...', formData);
-    if (onAuthSuccess) onAuthSuccess(formData.email);
+    setSubmitError('');
+    setIsSubmitting(true);
+
+    try {
+      let userCredential;
+
+      if (isLogin) {
+        userCredential = await signInWithEmailAndPassword(
+          auth,
+          formData.email,
+          formData.password
+        );
+      } else {
+        userCredential = await createUserWithEmailAndPassword(
+          auth,
+          formData.email,
+          formData.password
+        );
+
+        if (formData.username) {
+          await updateProfile(userCredential.user, { displayName: formData.username });
+        }
+      }
+
+      if (onAuthSuccess) onAuthSuccess(userCredential.user.email);
+      if (onClose) onClose();
+    } catch (error) {
+      setSubmitError(getErrorMessage(error.code));
+      console.error('Auth error', error);
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
+  const handleGoogleLogin = async () => {
+    setSubmitError('');
+    setIsSubmitting(true);
+
+    try {
+      const result = await signInWithPopup(auth, googleProvider);
+      if (onAuthSuccess) onAuthSuccess(result.user.email);
+      if (onClose) onClose();
+    } catch (error) {
+      setSubmitError(getErrorMessage(error.code));
+      console.error('Google sign-in error', error);
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const handleForgotClick = () => {
+    setSubmitError('');
+    setErrors({});
     if (onSwitchToForgotPassword) {
       onSwitchToForgotPassword();
     } else {
