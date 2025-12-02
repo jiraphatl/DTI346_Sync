@@ -1,67 +1,83 @@
-/* กลุ่มปุ่มลอยมุมขวาล่าง เหนือทุกอย่าง */
-.fab-wrapper {
-  position: fixed;
-  bottom: 24px; /* ถ้าทับ bottom nav เปลี่ยนเป็น 80px ได้ */
-  right: 24px;
-  z-index: 9999;
+/* ==================== Floating Action Menu Styles ==================== */
 
+/* wrapper ต้องไม่ fixed แล้ว เพื่อให้ไปอยู่ใน nav bar ตรงกลาง */
+.fab-wrapper {
+  position: relative; 
   display: flex;
   flex-direction: column;
-  align-items: flex-end;
+  align-items: center;
+  justify-content: flex-end;
+  /* เอา z-index ออก หรือใส่น้อยๆ เพราะ container แม่จัดการแล้ว */
 }
 
-/* กล่องเมนู 3 ปุ่ม เรียงลงมา */
+/* กล่องเมนู 3 ปุ่ม */
 .fab-menu {
+  position: absolute;
+  bottom: 85px; /* ดันให้ลอยขึ้นไปอยู่เหนือปุ่ม + */
   display: flex;
   flex-direction: column;
   gap: 10px;
-  margin-bottom: 14px;
+  align-items: center; /* จัดให้ปุ่มย่อยอยู่กึ่งกลาง */
+  z-index: 9999;
 }
 
-/* ปุ่มเมนูย่อย (3 อัน) ทรงแคปซูลสีชมพู */
+/* ปุ่มเมนูย่อย (3 อัน) */
 .fab-menu-item {
-  background: #ff9fc5;          /* ชมพูอ่อนเหมือนในรูป */
+  /* --- ส่วนที่เพิ่มใหม่เพื่อจัดระเบียบ --- */
+  display: flex;         /* จัดเรียงแบบกล่อง Flexbox */
+  align-items: center;   /* จัดให้ไอคอนกับตัวหนังสืออยู่กึ่งกลางแนวตั้งตรงกัน */
+  gap: 12px;             /* ระยะห่างระหว่าง ไอคอน กับ ตัวหนังสือ (ปรับเลขนี้ได้ตามชอบ) */
+  /* -------------------------------- */
+
+  background: #ff9fc5;
   color: #ffffff;
   border: none;
-  padding: 8px 18px;
+  padding: 10px 20px;    /* ปรับ Padding ให้ดูโปร่งขึ้นเล็กน้อย */
   border-radius: 999px;
   font-size: 14px;
+  font-weight: 500;      /* เพิ่มความหนาตัวหนังสือเล็กน้อยให้อ่านง่าย */
   cursor: pointer;
   white-space: nowrap;
   box-shadow: 0 3px 10px rgba(0, 0, 0, 0.18);
   transition: transform 0.15s ease, box-shadow 0.15s ease, opacity 0.15s ease;
 }
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
 
 .fab-menu-item:hover {
   transform: translateY(-2px);
   box-shadow: 0 5px 14px rgba(0, 0, 0, 0.22);
+  background: #ff6fa3;
 }
 
 /* ปุ่ม + หลักสีชมพูไล่เฉด */
 .fab-main {
-  width: 70px;
-  height: 70px;
+  width: 60px; /* ลดขนาดลงนิดหน่อยให้พอดีกับ Nav Bar */
+  height: 60px;
   border-radius: 50%;
   border: none;
   cursor: pointer;
-  font-size: 40px;
+  font-size: 32px;
   background: linear-gradient(135deg, #ff6fa3, #ff9fc5);
   color: white;
-  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.25);
+  box-shadow: 0 6px 18px rgba(255, 111, 163, 0.4);
 
   display: flex;
   align-items: center;
   justify-content: center;
+  padding-bottom: 4px; /* ปรับตำแหน่งเครื่องหมาย + ให้กลางเป๊ะ */
 
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
 .fab-main:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 8px 22px rgba(0, 0, 0, 0.3);
+  transform: scale(1.1);
 }
 
-/* ตอนเปิดเมนู หมุน + เป็นเหมือนปุ่มปิด */
+/* ตอนเปิดเมนู หมุน + เป็น x */
 .fab-main-open {
   transform: rotate(45deg);
+  background: linear-gradient(135deg, #ff4d88, #ff85b3);
 }

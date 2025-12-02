@@ -1,40 +1,39 @@
 import React, { useState } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+
+// Import Components
 import LogoPage from './components/LogoPage';
-import AboutUS from './components/AboutUSPage'; // ✅ เรียกไฟล์ใหม่ถูกต้อง
-import ProfilePage from './components/Setting'; // ✅ ต้องมั่นใจว่าไฟล์ชื่อ Setting.js นะครับ
+import AboutUS from './components/AboutUSPage';
+import HomePage from './components/HomePage';
 
 function App() {
   const [user, setUser] = useState(null);
   const [showLogo, setShowLogo] = useState(true);
 
-  const handleGetStarted = () => {
-    setShowLogo(false);
-  };
-
+  // ฟังก์ชันจำลองการ Login
   const handleLogin = (email) => {
+    // ในสถานการณ์จริงอาจรับ Object user มาจาก API
     const username = email.split('@')[0];
-    // ✅ แค่ Set User ก็พอ React จะรู้เองว่าต้องเปลี่ยนหน้า (ดูใน return ด้านล่าง)
-    setUser({ username, email });
+    setUser({ username, email, name: username }); // Set User เพื่อให้ Route ทำงาน
   };
 
   const handleLogout = () => {
     setUser(null);
     setShowLogo(true);
-    // ไม่ต้องใช้ window.location.href
   };
 
   return (
     <Router>
       <Routes>
+        {/* Route: หน้าแรก (Landing) */}
         <Route 
           path="/" 
           element={
-            // ✅ เพิ่ม Logic: ถ้ามี User แล้ว ให้เด้งไปหน้า Profile เลย
             user ? (
-              <Navigate to="/profile" replace />
+              // ✅ 1. ถ้า Login แล้ว ให้เด้งไปหน้า Home ทันที
+              <Navigate to="/home" replace />
             ) : showLogo ? (
-              <LogoPage onGetStarted={handleGetStarted} />
+              <LogoPage onGetStarted={() => setShowLogo(false)} />
             ) : (
               <AboutUS 
                 onLoginSuccess={handleLogin}
@@ -44,15 +43,22 @@ function App() {
           } 
         />
         
+        {/* Route: หน้าหลัก (Protected) */}
         <Route 
-          path="/profile" 
+          path="/home" 
           element={
-            // เช็คว่ามี user ไหม? ถ้ามีแสดง ProfilePage(Setting) ถ้าไม่มีเด้งกลับหน้าแรก
-            user ? <ProfilePage user={user} onLogout={handleLogout} /> : <Navigate to="/" />
+            user ? (
+              // ✅ 2. แสดง HomePage และส่ง user prop เข้าไป
+              <HomePage user={user} onLogout={handleLogout} />
+            ) : (
+              // ถ้ายังไม่ login ให้ดีดกลับไปหน้าแรก
+              <Navigate to="/" replace />
+            )
           } 
         />
-        
-        <Route path="*" element={<Navigate to="/" />} />
+
+        {/* Redirect เส้นทางอื่นๆ กลับหน้าแรก */}
+        <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </Router>
   );
