@@ -83,57 +83,29 @@ function HomePage({ user, onLogout }) {
                   </div>
       </div>
 
-      {/* Bottom Navigation */}
+      {/* --- Bottom Navigation (เหมือน HomePage) --- */}
       <nav className="bottom-nav">
         <div className="nav-wrapper">
-          <button 
-            className={`nav-item ${activeTab === 'home' ? 'active' : ''}`} 
-            onClick={() => {
-              setActiveTab('home');
-              navigate('/home'); 
-            }}
-          >
+            <button className="nav-item active">
             <span className="nav-icon"><Icons.Home /></span>
             <span className="nav-label"></span>
           </button>
 
-          <button 
-            className={`nav-item ${activeTab === 'bell' ? 'active' : ''}`} 
-            onClick={() => {
-              setActiveTab('bell');
-              navigate('/notifications'); 
-            }}
-          >
+            <button className="nav-item" onClick={() => navigate('/notifications')}>
             <span className="nav-icon"><Icons.Bell /></span>
             <span className="nav-label"></span>
           </button>
 
           <div className="fab-container">
-            <FloatingActionMenu
-              onCreateOnlineMeeting={handleCreateOnlineMeeting}
-              onCreateEvent={handleCreateEvent}
-              onAddAssignment={handleAddAssignment}
-            />
+            <FloatingActionMenu />
           </div>
 
-          <button 
-            className={`nav-item ${activeTab === 'calendar' ? 'active' : ''}`} 
-            onClick={() => {
-              setActiveTab('calendar');
-              navigate('/calendar'); 
-            }}
-          >
+          <button className="nav-item" onClick={() => navigate('/calendar')}>
             <span className="nav-icon"><Icons.Calendar /></span>
             <span className="nav-label"></span>
           </button>
 
-          <button 
-            className={`nav-item ${activeTab === 'settings' ? 'active' : ''}`} 
-            onClick={() => {
-              setActiveTab('settings');
-              navigate('/settings'); 
-            }}
-          >
+          <button className="nav-item" onClick={() => navigate('/settings')}>
             <span className="nav-icon"><Icons.User /></span>
             <span className="nav-label"></span>
           </button>
