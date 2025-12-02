@@ -21,7 +21,7 @@
 
 body {
   font-family: 'Prompt', -apple-system, BlinkMacSystemFont, sans-serif;
-  background-color: var(--bg-app);
+  background: linear-gradient(180deg, #fff0f5 0%, #ffffff 100%);
   color: var(--text-main);
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;

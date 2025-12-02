@@ -9,6 +9,7 @@
   --radius-lg: 24px;
   --radius-md: 16px;
   
+  
   /* Status Colors */
   --urgent-bg: #ffebee;
   --urgent-text: #e53935;
@@ -19,6 +20,7 @@
   --success-bg: #e8f5e9;
   --success-text: #43a047;
 }
+
 
 .notif-page-container {
   min-height: 100vh;
@@ -372,338 +374,126 @@
    ✅ RESPONSIVE DESIGN
    ======================================== */
 
-/* 📱 Mobile Small: 320px - 375px */
-@media (max-width: 375px) {
-  .notif-page-container {
-    padding: 16px 16px 100px 16px;
+/* 📱 Mobile Devices: 320px - 480px */
+@media (max-width: 480px) {
+  .main-header {
+    padding: 10px;
   }
-  
-  .page-title {
-    font-size: 22px;
+
+  .user-greeting {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    gap: 8px;
   }
-  
-  .page-subtitle {
-    font-size: 12px;
-  }
-  
-  .mark-read-btn {
-    font-size: 12px;
-    padding: 6px 10px;
-  }
-  
-  .notif-card {
-    padding: 12px;
-    gap: 12px;
-  }
-  
-  .notif-icon-box {
+
+  .avatar-circle img {
     width: 40px;
     height: 40px;
-    font-size: 18px;
   }
-  
-  .notif-item-title {
-    font-size: 15px;
+
+  .header-content {
+    gap: 12px;
+    flex-direction: column;
+    align-items: center;
   }
-  
-  .notif-detail {
-    font-size: 13px;
+
+  .date-header {
+    font-size: 1rem; /* ปรับขนาดฟอนต์ */
   }
-  
-  .tab-btn {
-    font-size: 13px;
-    padding: 7px 16px;
+
+  .week-days {
+    flex-wrap: wrap;
+  }
+
+  .day-item {
+    width: 14%; /* ทำให้วันต่าง ๆ ยืดหยุ่นได้ */
+    font-size: 1.2rem;
+    padding: 10px 8px;
+  }
+
+  .nav-wrapper {
+    flex-direction: column;
+  }
+
+  .nav-item {
+    padding: 10px;
+    width: 100%;
+    text-align: center;
   }
 }
-
-/* 📱 Mobile: 376px - 480px */
-@media (min-width: 376px) and (max-width: 480px) {
-  .notif-page-container {
-    padding: 18px 18px 100px 18px;
-  }
-  
-  .page-title {
-    font-size: 24px;
-  }
-  
-  .notif-card {
-    padding: 14px;
-  }
-  
-  .delete-btn {
-    opacity: 1; /* แสดงปุ่มลบตลอดบนมือถือ */
-  }
-}
-
 /* 📱 Tablets/iPads: 481px - 768px */
 @media (min-width: 481px) and (max-width: 768px) {
-  .notif-page-container {
-    padding: 24px 24px 100px 24px;
-    max-width: 680px;
+  .main-header {
+    padding: 20px 30px;
   }
-  
-  .page-title {
-    font-size: 28px;
+
+  .week-days {
+    justify-content: space-between;
   }
-  
-  .page-subtitle {
-    font-size: 15px;
+
+  .day-item {
+    padding: 12px;
+    font-size: 1.2rem;
   }
-  
-  .mark-read-btn {
-    font-size: 14px;
-    padding: 10px 16px;
+
+  .nav-wrapper {
+    flex-direction: row;
+    justify-content: space-between;
   }
-  
-  .notif-card {
-    padding: 18px;
+
+  .nav-item {
+    width: 23%; /* เพิ่มขนาดปุ่มให้พอดีกับหน้าจอ */
   }
-  
-  .notif-icon-box {
-    width: 52px;
-    height: 52px;
-    font-size: 22px;
-  }
-  
-  .notif-item-title {
-    font-size: 17px;
-  }
-  
-  .tab-btn {
-    font-size: 15px;
-    padding: 9px 24px;
+
+  .fab-container {
+    top: -30px;
   }
 }
-
-/* 💻 Laptops: 769px - 1024px */
-@media (min-width: 769px) {
-  .notif-page-container {
-    padding: 30px 30px 100px 30px;
-    max-width: 720px;
-  }
-  
-  .page-title {
-    font-size: 30px;
-  }
-  
-  .page-subtitle {
-    font-size: 16px;
-  }
-  
-  .mark-read-btn {
-    padding: 10px 18px;
-  }
-  
-  .mark-read-btn:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 4px 12px rgba(233, 30, 99, 0.2);
-  }
-  
-  .tab-btn {
-    padding: 10px 28px;
-  }
-  
-  .tab-btn:hover:not(.active) {
-    background-color: rgba(255,255,255,0.5);
-    color: var(--text-main);
-  }
-  
-  .notif-card {
-    padding: 20px;
-  }
-  
-  .notif-card:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 10px 30px rgba(0,0,0,0.08);
-  }
-  
-  .delete-btn {
-    opacity: 0;
-  }
-  
-  .notif-card:hover .delete-btn {
-    opacity: 1;
-  }
-  
-  .delete-btn:hover {
-    transform: scale(1.1);
-  }
-}
-
-/* 🖥️ Desktops: 1025px - 1440px */
+/* 🖥️ Desktops: 1025px - 1200px */
 @media (min-width: 1025px) {
-  .notif-page-container {
-    padding: 40px 40px 100px 40px;
-    max-width: 760px;
+  .main-header {
+    padding: 30px 40px;
   }
-  
-  .page-title {
-    font-size: 32px;
-    margin-bottom: 6px;
-  }
-  
-  .notif-header {
-    margin-bottom: 28px;
-  }
-  
-  .notif-card {
-    padding: 22px;
+
+  .week-days {
     gap: 20px;
   }
-  
-  .notif-icon-box {
-    width: 56px;
-    height: 56px;
-    font-size: 24px;
+
+  .day-item {
+    padding: 15px;
+    font-size: 1.5rem;
   }
-  
-  .notif-item-title {
-    font-size: 18px;
+
+  .nav-wrapper {
+    width: 80%;
+    justify-content: space-evenly;
   }
-  
-  .notif-detail {
-    font-size: 15px;
+
+  .nav-item {
+    width: 25%;
   }
 }
+/* 🖥️ Extra-Large Devices: 1201px+ */
+@media (min-width: 1201px) {
+  .main-header {
+    padding: 40px 50px;
+  }
 
-/* 🖥️ Large Desktops: 1441px+ */
-@media (min-width: 1441px) {
-  .notif-page-container {
-    max-width: 800px;
-    padding: 50px 50px 100px 50px;
+  .week-days {
+    justify-content: space-around;
   }
-  
-  .page-title {
-    font-size: 34px;
-  }
-  
-  .notif-content-area {
-    gap: 24px;
-  }
-  
-  .notif-card {
-    padding: 24px;
-  }
-}
 
-/* ✅ Landscape Mode (จอแนวนอนเตี้ย) */
-@media (max-height: 600px) and (orientation: landscape) {
-  .notif-page-container {
-    padding: 12px 20px 100px 20px;
+  .day-item {
+    width: 12%;
+    padding: 20px;
   }
-  
-  .notif-header {
-    margin-bottom: 16px;
-  }
-  
-  .page-title {
-    font-size: 20px;
-    margin-bottom: 2px;
-  }
-  
-  .page-subtitle {
-    font-size: 12px;
-  }
-  
-  .mark-read-btn {
-    padding: 6px 10px;
-    font-size: 12px;
-  }
-  
-  .filter-tabs-container {
-    padding-bottom: 10px;
-  }
-  
-  .notif-card {
-    padding: 10px 12px;
-    gap: 12px;
-  }
-  
-  .notif-icon-box {
-    width: 36px;
-    height: 36px;
-    font-size: 16px;
-  }
-  
-  .notif-item-title {
-    font-size: 14px;
-  }
-  
-  .notif-detail {
-    font-size: 12px;
-    -webkit-line-clamp: 1;
-  }
-  
-  .empty-state {
-    padding: 30px 20px;
-  }
-  
-  .empty-icon {
-    width: 60px;
-    height: 60px;
-  }
-}
 
-/* ✅ Touch Device Optimization */
-@media (hover: none) and (pointer: coarse) {
-  .mark-read-btn {
-    min-height: 44px;
+  .nav-wrapper {
+    width: 90%;
   }
-  
-  .tab-btn {
-    min-height: 44px;
-  }
-  
-  .notif-card {
-    min-height: 80px;
-  }
-  
-  .delete-btn {
-    min-width: 44px;
-    min-height: 44px;
-    opacity: 1; /* แสดงปุ่มลบตลอดบน touch devices */
-  }
-  
-  /* ปิด hover effects บน touch devices */
-  .notif-card:hover {
-    transform: none;
-  }
-  
-  .delete-btn:hover {
-    transform: none;
-  }
-}
 
-/* ✅ High DPI Screens (Retina) */
-@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
-  .notif-card {
-    box-shadow: 0 4px 16px rgba(0,0,0,0.04);
-  }
-  
-  .mark-read-btn {
-    box-shadow: 0 3px 8px rgba(0,0,0,0.06);
-  }
-  
-  .tab-btn.active {
-    box-shadow: 0 3px 10px rgba(0,0,0,0.12);
-  }
-}
-
-/* ✅ Prefers Reduced Motion - Accessibility */
-@media (prefers-reduced-motion: reduce) {
-  *,
-  *::before,
-  *::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-  }
-  
-  .notif-card:hover {
-    transform: none;
-  }
-  
-  .mark-read-btn:hover {
-    transform: none;
+  .nav-item {
+    width: 20%;
   }
 }
