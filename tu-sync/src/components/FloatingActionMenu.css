@@ -10,7 +10,9 @@
   /* เอา z-index ออก หรือใส่น้อยๆ เพราะ container แม่จัดการแล้ว */
 }
 
-/* กล่องเมนู 3 ปุ่ม */
+/* DEFAULT (Mobile/Bottom Nav): 
+   Menu opens UPWARDS from the button 
+*/
 .fab-menu {
   position: absolute;
   bottom: 85px; /* ดันให้ลอยขึ้นไปอยู่เหนือปุ่ม + */
@@ -19,28 +21,31 @@
   gap: 10px;
   align-items: center; /* จัดให้ปุ่มย่อยอยู่กึ่งกลาง */
   z-index: 9999;
+  width: max-content; /* Ensure width adjusts to content */
 }
 
 /* ปุ่มเมนูย่อย (3 อัน) */
 .fab-menu-item {
-  /* --- ส่วนที่เพิ่มใหม่เพื่อจัดระเบียบ --- */
-  display: flex;         /* จัดเรียงแบบกล่อง Flexbox */
-  align-items: center;   /* จัดให้ไอคอนกับตัวหนังสืออยู่กึ่งกลางแนวตั้งตรงกัน */
-  gap: 12px;             /* ระยะห่างระหว่าง ไอคอน กับ ตัวหนังสือ (ปรับเลขนี้ได้ตามชอบ) */
-  /* -------------------------------- */
+  display: flex;         
+  align-items: center;   
+  gap: 12px;             
 
   background: #ff9fc5;
   color: #ffffff;
   border: none;
-  padding: 10px 20px;    /* ปรับ Padding ให้ดูโปร่งขึ้นเล็กน้อย */
+  padding: 10px 20px;    
   border-radius: 999px;
   font-size: 14px;
-  font-weight: 500;      /* เพิ่มความหนาตัวหนังสือเล็กน้อยให้อ่านง่าย */
+  font-weight: 500;      
   cursor: pointer;
   white-space: nowrap;
   box-shadow: 0 3px 10px rgba(0, 0, 0, 0.18);
   transition: transform 0.15s ease, box-shadow 0.15s ease, opacity 0.15s ease;
+  
+  /* Default Animation: Slide Up */
+  animation: slideUp 0.2s ease-out;
 }
+
 @keyframes slideUp {
   from { opacity: 0; transform: translateY(10px); }
   to { opacity: 1; transform: translateY(0); }
@@ -54,30 +59,60 @@
 
 /* ปุ่ม + หลักสีชมพูไล่เฉด */
 .fab-main {
-  width: 60px; /* ลดขนาดลงนิดหน่อยให้พอดีกับ Nav Bar */
+  width: 60px;
   height: 60px;
   border-radius: 50%;
-  border: none;
-  cursor: pointer;
-  font-size: 32px;
-  background: linear-gradient(135deg, #ff6fa3, #ff9fc5);
+  background: linear-gradient(135deg, #ff9fc5 0%, #ff6fa3 100%);
   color: white;
-  box-shadow: 0 6px 18px rgba(255, 111, 163, 0.4);
-
+  border: none;
+  font-size: 24px;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding-bottom: 4px; /* ปรับตำแหน่งเครื่องหมาย + ให้กลางเป๊ะ */
-
-  transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  box-shadow: 0 4px 12px rgba(255, 105, 180, 0.4);
+  cursor: pointer;
+  transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.3s ease;
+  z-index: 10000;
 }
 
 .fab-main:hover {
   transform: scale(1.1);
+  box-shadow: 0 6px 16px rgba(255, 105, 180, 0.6);
 }
 
-/* ตอนเปิดเมนู หมุน + เป็น x */
+.fab-main:active {
+  transform: scale(0.95);
+}
+
 .fab-main-open {
   transform: rotate(45deg);
-  background: linear-gradient(135deg, #ff4d88, #ff85b3);
+  background: #ff6fa3; 
+}
+
+/* ==========================================================================
+   ✅ DESKTOP / SIDEBAR FIX (UPDATED)
+   When screen is large, the menu opens to the RIGHT of the sidebar.
+   ==========================================================================
+*/
+@media (min-width: 768px) and (min-height: 601px) {
+  .fab-menu {
+    bottom: auto;    /* Reset bottom */
+    top: 0;          /* Align with top of the main button */
+    left: 75px;      /* Move it 75px to the RIGHT */
+    
+    flex-direction: column;
+    align-items: flex-start; /* Align text to the left */
+    padding-left: 10px;      /* Add spacer so mouse can move to it */
+  }
+
+  /* Animation: Slide out to the Right */
+  @keyframes slideRight {
+    from { opacity: 0; transform: translateX(-10px); }
+    to { opacity: 1; transform: translateX(0); }
+  }
+
+  .fab-menu-item {
+    animation: slideRight 0.2s ease-out;
+    /* Optional: Add a small triangle pointing left if you want */
+  }
 }

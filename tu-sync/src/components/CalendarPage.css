@@ -1,4 +1,4 @@
-/* ===================== Variables & Reset ===================== */
+/* ===================== Efficiency: CSS Variables ===================== */
 :root {
   --primary: #E91E63;
   --primary-light: #FCE4EC;
@@ -6,18 +6,22 @@
   --text-muted: #95a5a6;
   --bg-app: #FAFAFA;
   --white: #FFFFFF;
-  --success: #4CAF50;
-  --danger: #FF5252;
   --radius-lg: 20px;
   --radius-md: 12px;
+  
+  /* Event Types for Efficiency */
+  --type-urgent: #FF5252;
+  --type-normal: #4CAF50;
+  --type-personal: #2196F3;
 }
 
 .calendar-page-container {
   min-height: 100vh;
   background-color: var(--bg-app);
-  padding: 20px 20px 100px 20px; /* Padding bottom เผื่อ Nav bar */
+  padding: 24px 20px 120px; /* Bottom padding for mobile nav */
   max-width: 1200px;
   margin: 0 auto;
+  font-family: 'Prompt', sans-serif;
 }
 
 /* ===================== Header ===================== */
@@ -30,125 +34,161 @@
 
 .page-title {
   font-size: 24px;
-  font-weight: 700;
+  font-weight: 800;
   color: var(--text-main);
   margin: 0;
+  letter-spacing: -0.5px;
 }
 
-.month-navigator {
+.header-actions {
   display: flex;
-  align-items: center;
   gap: 12px;
-  background: var(--white);
+}
+
+.btn-secondary {
   padding: 8px 16px;
-  border-radius: 99px;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-}
-
-.current-month {
+  border-radius: 20px;
+  border: 1px solid #ddd;
+  background: var(--white);
+  color: var(--text-main);
   font-weight: 600;
-  font-size: 16px;
-  color: var(--primary);
-  min-width: 120px;
-  text-align: center;
+  cursor: pointer;
+  font-size: 14px;
 }
 
-.nav-arrow {
-  background: none;
+.btn-primary {
+  padding: 8px 16px;
+  border-radius: 20px;
   border: none;
-  color: var(--text-muted);
+  background: var(--primary);
+  color: var(--white);
+  font-weight: 600;
   cursor: pointer;
   display: flex;
   align-items: center;
+  gap: 6px;
+  font-size: 14px;
 }
 
-.nav-arrow:hover {
-  color: var(--primary);
-}
-
-/* ===================== Layout Content ===================== */
+/* ===================== Layout ===================== */
 .content-layout {
   display: flex;
-  flex-direction: column; /* Mobile: แนวตั้ง */
+  flex-direction: column;
   gap: 24px;
 }
 
-/* ===================== Calendar Section ===================== */
 .calendar-section {
   background: var(--white);
+  padding: 24px;
   border-radius: var(--radius-lg);
-  padding: 20px;
-  box-shadow: 0 4px 20px rgba(0,0,0,0.04);
+  box-shadow: 0 4px 15px rgba(0,0,0,0.02); /* Performance-friendly shadow */
 }
 
-.weekdays-grid {
+/* ===================== Calendar Grid ===================== */
+.cal-nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.current-month-label {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--text-main);
+}
+
+.nav-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 8px;
+  color: var(--text-muted);
+}
+
+.nav-btn:hover {
+  color: var(--primary);
+}
+
+.weekdays-row {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
   text-align: center;
-  margin-bottom: 10px;
+  margin-bottom: 12px;
 }
 
-.weekday-header {
+.weekday {
   font-size: 13px;
-  font-weight: 600;
   color: var(--text-muted);
+  font-weight: 600;
   text-transform: uppercase;
 }
 
 .days-grid {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
-  row-gap: 8px;
-  column-gap: 8px;
+  gap: 8px; /* Increased gap for cleaner look */
 }
 
 .day-cell {
-  aspect-ratio: 1; /* ให้เป็นสี่เหลี่ยมจัตุรัส */
+  aspect-ratio: 1;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  border-radius: 50%; /* วงกลม */
-  font-size: 16px;
-  font-weight: 500;
-  color: var(--text-main);
+  border-radius: 50%; /* Perfect circles */
+  font-size: 15px;
   cursor: pointer;
   position: relative;
-  transition: background 0.1s, color 0.1s; /* Transition สั้นๆ พอ */
+  color: var(--text-main);
 }
 
+/* No Hover Animation for Performance */
 .day-cell:hover:not(.empty) {
   background-color: #f5f5f5;
 }
 
 .day-cell.selected {
   background-color: var(--primary);
-  color: var(--white);
-  box-shadow: 0 4px 10px rgba(233, 30, 99, 0.3);
+  color: white;
+  font-weight: 600;
 }
 
-.event-dot {
+.day-cell.today {
+  border: 2px solid var(--primary);
+  color: var(--primary);
+}
+
+.day-cell.selected.today {
+  color: white;
+  border: none;
+}
+
+.day-cell.empty {
+  cursor: default;
+}
+
+.dot-indicator {
   width: 5px;
   height: 5px;
-  background-color: var(--primary);
+  background-color: #FFC107;
   border-radius: 50%;
   position: absolute;
   bottom: 6px;
 }
 
-.day-cell.selected .event-dot {
-  background-color: var(--white);
-}
-
-/* ===================== Events Section ===================== */
+/* ===================== Events List ===================== */
 .events-section {
-  flex: 1;
+  background: var(--white);
+  padding: 24px;
+  border-radius: var(--radius-lg);
+  box-shadow: 0 4px 15px rgba(0,0,0,0.02);
 }
 
-.section-heading {
+.section-title {
   font-size: 18px;
-  font-weight: 600;
-  margin-bottom: 16px;
+  font-weight: 700;
+  margin: 0 0 20px 0;
   color: var(--text-main);
 }
 
@@ -159,191 +199,202 @@
 }
 
 .event-card {
-  background: var(--white);
-  border-radius: var(--radius-md);
-  padding: 16px;
   display: flex;
   align-items: center;
   gap: 16px;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.03);
+  padding: 16px;
+  border-radius: var(--radius-md);
+  background: var(--bg-app);
+  border: 1px solid #f0f0f0;
   position: relative;
   overflow: hidden;
 }
 
-/* แถบสีบอกประเภทงานด้านซ้าย */
-.status-strip {
+/* Colored strip indicating type */
+.event-card::before {
+  content: '';
   position: absolute;
   left: 0;
   top: 0;
   bottom: 0;
   width: 4px;
 }
-.status-strip.work { background: #2196F3; }
-.status-strip.exam { background: #FF5252; }
-.status-strip.meeting { background: #FFC107; }
-.status-strip.study { background: #9C27B0; }
 
-.event-content {
+.event-card.type-urgent::before { background: var(--type-urgent); }
+.event-card.type-normal::before { background: var(--type-normal); }
+.event-card.type-personal::before { background: var(--type-personal); }
+
+.event-time-col {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  min-width: 60px;
+  color: var(--text-muted);
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.event-details {
   flex: 1;
 }
 
-.event-title {
-  font-size: 16px;
-  font-weight: 600;
+.event-details h4 {
+  font-size: 15px;
   margin: 0 0 4px 0;
+  color: var(--text-main);
 }
 
-.event-note {
-  font-size: 13px;
-  color: var(--text-muted);
-  margin: 0 0 8px 0;
-}
-
-.time-badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 4px;
+.event-details p {
   font-size: 12px;
-  background: #f0f0f0;
-  padding: 4px 8px;
-  border-radius: 6px;
-  color: #666;
-}
-
-.event-actions {
-  display: flex;
-  gap: 8px;
+  color: var(--text-muted);
+  margin: 0;
 }
 
 .action-btn {
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
+  background: none;
   border: none;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  color: #ddd;
   cursor: pointer;
+  padding: 8px;
 }
 
-.action-btn.check {
-  background: #E8F5E9;
-  color: var(--success);
-}
-
-.action-btn.delete {
-  background: #FFEBEE;
-  color: var(--danger);
+.action-btn:hover {
+  color: var(--primary);
 }
 
 .empty-state {
   text-align: center;
   color: var(--text-muted);
-  padding: 40px;
-  background: rgba(255,255,255,0.5);
-  border-radius: var(--radius-md);
-  border: 1px dashed #ddd;
+  padding: 20px;
 }
 
-/* ===================== Responsive Media Queries ===================== */
+/* ===================== RESPONSIVE NAV (SYNCED) ===================== */
 
-/* 📱 Tablet (768px+) */
-@media (min-width: 768px) {
+/* ✅ 1. MOBILE & TABLET PORTRAIT (< 768px) + LANDSCAPE PHONES */
+@media (max-width: 767px), (max-height: 600px) and (orientation: landscape) {
+  .calendar-page-container {
+    padding: 20px 20px 100px;
+    max-width: 100%;
+  }
+
   .content-layout {
-    flex-direction: row; /* เปลี่ยนเป็นแนวนอน */
+    flex-direction: column;
+  }
+
+  .bottom-nav {
+    left: 15px;
+    bottom: 15px;
+    width: calc(100% - 30px);
+    flex-direction: row !important;
+    justify-content: center !important;
+    padding: 0;
+    max-width: 500px;
+    margin: 0 auto;
+    background: var(--white);
+    height: 70px;
+    border-radius: 24px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    display: flex;
+    align-items: center;
+    z-index: 1000;
+    position: fixed;
+    transform: none;
+  }
+
+  .nav-wrapper {
+    flex-direction: row !important;
+    justify-content: space-between;
+    width: 100%;
+    padding: 0 15px;
+    align-items: center;
+    gap: 0;
+  }
+
+  .nav-item {
+    background: none;
+    border: none;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-muted);
+    cursor: pointer;
+    padding: 8px;
+    width: auto !important;
+    flex: 1;
+  }
+
+  .nav-item.active {
+    color: var(--primary);
+  }
+
+  .fab-container {
+    position: relative;
+    top: -25px;
+    width: 56px;
+    height: 56px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 0;
+  }
+}
+
+/* ✅ 2. DESKTOP & LARGE TABLETS (768px+) */
+@media (min-width: 768px) and (min-height: 601px) {
+  .calendar-page-container {
+    padding-left: 140px; /* Space for Sidebar */
+    max-width: 1200px;
+  }
+
+  .content-layout {
+    flex-direction: row;
     align-items: flex-start;
   }
 
   .calendar-section {
-    flex: 1.2; /* ปฏิทินกินพื้นที่เยอะกว่านิดหน่อย */
-    position: sticky; /* ให้ปฏิทินค้างไว้เวลาเลื่อนงาน */
-    top: 20px;
+    flex: 1.5;
   }
 
   .events-section {
     flex: 1;
+    position: sticky;
+    top: 20px;
   }
 
-  .day-cell {
-    font-size: 18px;
-  }
-}
-
-/* 💻 Desktop (1024px+) */
-@media (min-width: 1024px) {
-  .calendar-page-container {
-    padding: 30px 40px 100px;
-  }
-
-  .day-cell {
-    border-radius: var(--radius-md); /* PC ปรับเป็นสี่เหลี่ยมมนๆ ก็สวย */
-    height: 80px; /* สูงขึ้น */
-    aspect-ratio: auto;
+  .bottom-nav {
+    top: 0; left: 0; bottom: 0;
+    width: 80px; height: 100vh;
+    flex-direction: column;
     justify-content: flex-start;
-    padding-top: 10px;
+    padding-top: 40px;
+    background: var(--white);
+    position: fixed;
+    z-index: 1000;
+  }
+  
+  .nav-wrapper { 
+    flex-direction: column; 
+    gap: 30px; 
+    justify-content: flex-start;
+    align-items: center;
+  }
+  
+  .fab-container { 
+    top: 0; 
+    order: -1; 
+    margin-bottom: 40px; 
   }
 
-  .event-dot {
-    top: 15px;
-    right: 15px;
-    bottom: auto;
-    width: 8px;
-    height: 8px;
+  .nav-item {
+    padding: 10px;
+    color: var(--text-muted);
   }
-}
 
-/* ===================== Bottom Nav (Shared Style) ===================== */
-.bottom-nav {
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  height: 90px;
-  background: var(--white);
-  border-radius: 30px 30px 0 0;
-  box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.08);
-  z-index: 1000;
-  padding-bottom: 15px;
-}
-
-.nav-wrapper {
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  height: 100%;
-  max-width: 500px;
-  margin: 0 auto;
-}
-
-.nav-item {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  background: none;
-  border: none;
-  color: var(--text-muted);
-  gap: 6px;
-  width: 65px;
-  cursor: pointer;
-  /* ตัด animation ออกตาม request */
-}
-
-.nav-item.active {
-  color: var(--primary);
-}
-
-.nav-label {
-  font-size: 11px;
-  font-weight: 500;
-}
-
-.fab-container {
-  position: relative;
-  top: -25px;
-  width: 70px;
-  height: 70px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  .nav-item.active {
+    color: var(--primary);
+    background: var(--primary-light);
+    border-radius: 12px;
+  }
 }

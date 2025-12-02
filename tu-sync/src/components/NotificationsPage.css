@@ -1,4 +1,4 @@
-/* ===================== Variables & Reset ===================== */
+/* ===================== Variables ===================== */
 :root {
   --primary: #E91E63;
   --primary-soft: #FCE4EC;
@@ -6,27 +6,20 @@
   --white: #FFFFFF;
   --text-main: #2c3e50;
   --text-muted: #95a5a6;
-  --radius-lg: 24px;
-  --radius-md: 16px;
+  --radius-lg: 16px; /* Reduced for cleaner look */
   
-  
-  /* Status Colors */
-  --urgent-bg: #ffebee;
-  --urgent-text: #e53935;
-  --reminder-bg: #fff8e1;
-  --reminder-text: #fbc02d;
-  --system-bg: #e3f2fd;
-  --system-text: #1e88e5;
-  --success-bg: #e8f5e9;
-  --success-text: #43a047;
+  /* Modern Palette for Icon Boxes */
+  --bg-urgent: #FFEBEE;
+  --bg-reminder: #FFF8E1;
+  --bg-system: #E3F2FD;
+  --bg-success: #E8F5E9;
 }
-
 
 .notif-page-container {
   min-height: 100vh;
   background-color: var(--bg-app);
-  padding: 20px 20px 100px 20px;
-  max-width: 600px;
+  padding: 24px 20px 120px 20px;
+  max-width: 800px;
   margin: 0 auto;
   font-family: 'Prompt', sans-serif;
 }
@@ -36,464 +29,302 @@
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
-  margin-bottom: 24px;
-  gap: 12px;
+  margin-bottom: 20px;
 }
 
 .header-text {
-  flex: 1;
-  min-width: 0;
+  display: flex;
+  flex-direction: column;
 }
 
 .page-title {
   font-size: 26px;
-  font-weight: 700;
+  font-weight: 800;
   color: var(--text-main);
-  margin: 0 0 4px 0;
+  margin: 0;
+  letter-spacing: -0.5px;
 }
 
 .page-subtitle {
-  font-size: 14px;
-  color: var(--text-muted);
-  margin: 0;
-}
-
-.mark-read-btn {
-  background-color: var(--white);
-  border: 1px solid #eee;
-  color: var(--primary);
   font-size: 13px;
-  font-weight: 600;
-  padding: 8px 12px;
-  border-radius: 20px;
+  color: var(--text-muted);
+  margin-top: 4px;
+}
+
+.clear-all-btn {
+  background: none;
+  border: none;
+  color: var(--text-muted);
+  font-size: 13px;
   cursor: pointer;
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  transition: all 0.2s ease;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
-  white-space: nowrap;
-  flex-shrink: 0;
+  transition: color 0.2s;
+  padding: 4px 8px;
 }
 
-.mark-read-btn:hover {
-  background-color: var(--primary-soft);
-  transform: translateY(-2px);
+.clear-all-btn:hover {
+  color: var(--primary);
+  text-decoration: underline;
 }
 
-/* ===================== Tabs ===================== */
+/* ===================== Filters ===================== */
 .filter-tabs-container {
-  position: sticky;
-  top: 0;
-  background: var(--bg-app);
-  z-index: 10;
-  padding-bottom: 15px;
-  padding-top: 5px;
-  overflow-x: auto;
-  -webkit-overflow-scrolling: touch;
+  margin-bottom: 24px;
 }
 
 .filter-tabs {
-  background-color: #f0f0f0;
-  padding: 4px;
-  border-radius: 99px;
-  display: inline-flex;
-  min-width: min-content;
-}
-
-.tab-btn {
-  background: none;
-  border: none;
-  font-size: 14px;
-  color: var(--text-muted);
-  padding: 8px 20px;
-  border-radius: 99px;
-  cursor: pointer;
-  font-weight: 500;
-  position: relative;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  white-space: nowrap;
-}
-
-.tab-btn.active {
-  background-color: var(--white);
-  color: var(--text-main);
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-  font-weight: 600;
-}
-
-.unread-badge-small {
-  position: absolute;
-  top: 6px;
-  right: 6px;
-  width: 8px;
-  height: 8px;
-  background: var(--primary);
-  border-radius: 50%;
-  border: 1px solid #fff;
-}
-
-/* ===================== Content & Groups ===================== */
-.notif-content-area {
   display: flex;
-  flex-direction: column;
-  gap: 20px;
+  gap: 10px;
 }
 
-.group-title {
-  font-size: 14px;
+.filter-tab {
+  padding: 8px 18px;
+  border-radius: 30px; /* Pill shape */
+  border: 1px solid transparent;
+  background: #f0f0f0;
   color: var(--text-muted);
-  margin: 0 0 12px 4px;
+  font-size: 13px;
   font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
 }
 
-.notif-group {
+.filter-tab:hover {
+  background: #e0e0e0;
+}
+
+.filter-tab.active {
+  background: var(--primary);
+  color: var(--white);
+  box-shadow: 0 4px 12px rgba(233, 30, 99, 0.25);
+}
+
+/* ===================== List & Cards ===================== */
+.notif-list {
   display: flex;
   flex-direction: column;
   gap: 12px;
 }
 
-/* ===================== Notification Card ===================== */
+.notif-group-title {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-muted);
+  margin: 12px 0 8px 4px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
 .notif-card {
-  background: var(--white);
-  padding: 16px;
-  border-radius: var(--radius-md);
   display: flex;
   gap: 16px;
-  align-items: flex-start;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+  background: var(--white);
+  padding: 16px;
+  border-radius: var(--radius-lg);
+  box-shadow: 0 2px 5px rgba(0,0,0,0.02); /* Very subtle shadow for performance */
+  transition: background-color 0.2s, box-shadow 0.2s;
   cursor: pointer;
   position: relative;
-  transition: transform 0.2s ease, opacity 0.3s ease;
   border: 1px solid transparent;
+  align-items: center;
 }
 
 .notif-card:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 20px rgba(0,0,0,0.06);
+  box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+  transform: translateY(-1px);
 }
 
-.notif-card.deleting {
-  transform: translateX(100%);
-  opacity: 0;
-}
-
+/* Unread State: Subtle highlight */
 .notif-card.unread {
-  background-color: var(--white);
+  background: #fff;
   border-left: 4px solid var(--primary);
 }
 
-/* Icon Box */
+/* Icon Box Styling */
 .notif-icon-box {
-  width: 48px;
-  height: 48px;
-  border-radius: 14px;
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
-  font-size: 20px;
 }
 
-/* Color Themes */
-.notif-card.urgent .notif-icon-box { background: var(--urgent-bg); color: var(--urgent-text); }
-.notif-card.reminder .notif-icon-box { background: var(--reminder-bg); color: var(--reminder-text); }
-.notif-card.system .notif-icon-box { background: var(--system-bg); color: var(--system-text); }
-.notif-card.success .notif-icon-box { background: var(--success-bg); color: var(--success-text); }
+/* Semantic Background Colors for efficiency (reusable classes) */
+.bg-urgent { background-color: var(--bg-urgent); }
+.bg-reminder { background-color: var(--bg-reminder); }
+.bg-system { background-color: var(--bg-system); }
+.bg-success { background-color: var(--bg-success); }
 
-/* Text Content */
-.notif-info {
+.notif-content {
   flex: 1;
-  min-width: 0;
+  min-width: 0; /* Prevents flex overflow */
 }
 
-.notif-header-row {
+.notif-top-row {
   display: flex;
   justify-content: space-between;
   align-items: baseline;
-  margin-bottom: 6px;
-  gap: 8px;
+  margin-bottom: 4px;
 }
 
-.notif-item-title {
-  font-size: 16px;
+.notif-title {
+  font-size: 15px;
   font-weight: 600;
   color: var(--text-main);
   margin: 0;
-  line-height: 1.3;
-  flex: 1;
-  min-width: 0;
-}
-
-.notif-card.unread .notif-item-title {
-  font-weight: 700;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .notif-time {
-  font-size: 12px;
+  font-size: 11px;
   color: var(--text-muted);
-  white-space: nowrap;
+  margin-left: 8px;
   flex-shrink: 0;
 }
 
-.notif-detail {
-  font-size: 14px;
+.notif-desc {
+  font-size: 13px;
   color: #666;
-  line-height: 1.5;
   margin: 0;
+  line-height: 1.4;
   display: -webkit-box;
-  -webkit-line-clamp: 2;
+  -webkit-line-clamp: 2; /* Limit to 2 lines */
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
 
-/* Actions */
-.notif-actions {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 12px;
-  justify-content: space-between;
-  height: 100%;
-  flex-shrink: 0;
-}
-
-.status-dot {
-  width: 10px;
-  height: 10px;
-  background: var(--primary);
-  border-radius: 50%;
-  box-shadow: 0 0 0 3px rgba(233, 30, 99, 0.1);
-}
-
-.delete-btn {
+/* Delete Button (Hidden by default, shown on hover/focus) */
+.delete-action-btn {
   background: none;
   border: none;
   color: #ddd;
+  padding: 8px;
   cursor: pointer;
-  padding: 6px;
-  border-radius: 8px;
-  transition: all 0.2s;
+  transition: color 0.2s;
 }
 
-.delete-btn:hover {
-  background-color: #ffebee;
-  color: var(--urgent-text);
+.notif-card:hover .delete-action-btn {
+  color: #ff5252;
 }
 
 /* Empty State */
 .empty-state {
-  text-align: center;
-  padding: 60px 20px;
-  color: var(--text-muted);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 15px;
-}
-
-.empty-icon {
-  width: 80px;
-  height: 80px;
-  background: #f5f5f5;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: #ccc;
-}
-
-.empty-icon svg {
-  width: 40px;
-  height: 40px;
-}
-
-/* ===================== Bottom Nav (Shared) ===================== */
-.bottom-nav {
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  height: 90px;
-  background: var(--white);
-  border-radius: 30px 30px 0 0;
-  box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.08);
-  z-index: 1000;
-  padding-bottom: 15px;
-}
-
-.nav-wrapper {
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  height: 100%;
-  max-width: 500px;
-  margin: 0 auto;
-}
-
-.nav-item {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background: none;
-  border: none;
+  padding: 60px 0;
   color: var(--text-muted);
-  gap: 6px;
-  width: 65px;
-  cursor: pointer;
-  transition: all 0.3s ease;
+  gap: 12px;
 }
 
-.nav-item.active {
-  color: var(--primary);
-}
+/* ===================== RESPONSIVE NAV (SYNCED) ===================== */
 
-.nav-item.active .nav-icon svg {
-  stroke-width: 2.5px;
-  filter: drop-shadow(0 4px 12px rgba(233, 30, 99, 0.4));
-  transform: translateY(-3px);
-}
-
-.nav-label {
-  font-size: 11px;
-  font-weight: 500;
-}
-
-.fab-container {
-  position: relative;
-  top: -25px;
-  width: 70px;
-  height: 70px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-/* ========================================
-   ✅ RESPONSIVE DESIGN
-   ======================================== */
-
-/* 📱 Mobile Devices: 320px - 480px */
-@media (max-width: 480px) {
-  .main-header {
-    padding: 10px;
+/* Mobile & Tablet Portrait */
+@media (max-width: 767px), (max-height: 600px) and (orientation: landscape) {
+  .notif-page-container {
+    padding-bottom: 120px;
+    max-width: 100%;
   }
 
-  .user-greeting {
+  .bottom-nav {
+    left: 15px;
+    bottom: 15px;
+    width: calc(100% - 30px);
+    flex-direction: row !important;
+    justify-content: center !important;
+    padding: 0;
+    max-width: 500px;
+    margin: 0 auto;
+    background: var(--white);
+    height: 70px;
+    border-radius: 24px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
     display: flex;
-    flex-direction: column;
-    text-align: center;
-    gap: 8px;
+    align-items: center;
+    z-index: 1000;
+    position: fixed;
   }
 
-  .avatar-circle img {
-    width: 40px;
-    height: 40px;
-  }
-
-  .header-content {
-    gap: 12px;
-    flex-direction: column;
+  .nav-wrapper {
+    flex-direction: row !important;
+    justify-content: space-between;
+    width: 100%;
+    padding: 0 15px;
     align-items: center;
   }
 
-  .date-header {
-    font-size: 1rem; /* ปรับขนาดฟอนต์ */
-  }
-
-  .week-days {
-    flex-wrap: wrap;
-  }
-
-  .day-item {
-    width: 14%; /* ทำให้วันต่าง ๆ ยืดหยุ่นได้ */
-    font-size: 1.2rem;
-    padding: 10px 8px;
-  }
-
-  .nav-wrapper {
+  .nav-item {
+    background: none;
+    border: none;
+    display: flex;
     flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-muted);
+    cursor: pointer;
+    padding: 8px;
+    width: auto !important;
+    flex: 1;
+  }
+
+  .nav-item.active {
+    color: var(--primary);
+  }
+
+  .fab-container {
+    position: relative;
+    top: -25px;
+    width: 56px;
+    height: 56px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+/* Desktop & Large Tablet */
+@media (min-width: 768px) and (min-height: 601px) {
+  .notif-page-container {
+    padding-left: 120px;
+    max-width: 1000px;
+  }
+
+  .bottom-nav {
+    top: 0; left: 0; bottom: 0;
+    width: 80px; height: 100vh;
+    flex-direction: column;
+    justify-content: flex-start;
+    padding-top: 40px;
+    background: var(--white);
+    position: fixed;
+    z-index: 1000;
+  }
+  
+  .nav-wrapper { 
+    flex-direction: column; 
+    gap: 30px; 
+    justify-content: flex-start;
+    align-items: center;
+  }
+  
+  .fab-container { 
+    top: 0; 
+    order: -1; 
+    margin-bottom: 40px; 
   }
 
   .nav-item {
     padding: 10px;
-    width: 100%;
-    text-align: center;
-  }
-}
-/* 📱 Tablets/iPads: 481px - 768px */
-@media (min-width: 481px) and (max-width: 768px) {
-  .main-header {
-    padding: 20px 30px;
+    color: var(--text-muted);
   }
 
-  .week-days {
-    justify-content: space-between;
-  }
-
-  .day-item {
-    padding: 12px;
-    font-size: 1.2rem;
-  }
-
-  .nav-wrapper {
-    flex-direction: row;
-    justify-content: space-between;
-  }
-
-  .nav-item {
-    width: 23%; /* เพิ่มขนาดปุ่มให้พอดีกับหน้าจอ */
-  }
-
-  .fab-container {
-    top: -30px;
-  }
-}
-/* 🖥️ Desktops: 1025px - 1200px */
-@media (min-width: 1025px) {
-  .main-header {
-    padding: 30px 40px;
-  }
-
-  .week-days {
-    gap: 20px;
-  }
-
-  .day-item {
-    padding: 15px;
-    font-size: 1.5rem;
-  }
-
-  .nav-wrapper {
-    width: 80%;
-    justify-content: space-evenly;
-  }
-
-  .nav-item {
-    width: 25%;
-  }
-}
-/* 🖥️ Extra-Large Devices: 1201px+ */
-@media (min-width: 1201px) {
-  .main-header {
-    padding: 40px 50px;
-  }
-
-  .week-days {
-    justify-content: space-around;
-  }
-
-  .day-item {
-    width: 12%;
-    padding: 20px;
-  }
-
-  .nav-wrapper {
-    width: 90%;
-  }
-
-  .nav-item {
-    width: 20%;
+  .nav-item.active {
+    color: var(--primary);
+    background: var(--primary-soft);
+    border-radius: 12px;
   }
 }

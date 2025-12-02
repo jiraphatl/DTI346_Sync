@@ -1,15 +1,15 @@
-/* ===================== Basic Styles ===================== */
-
+/* ===================== CSS Variables ===================== */
 :root {
   --primary: #E91E63;
   --primary-soft: #FCE4EC;
-  --primary-gradient: linear-gradient(135deg, #E91E63 0%, #F06292 100%);
   --text-main: #2c3e50;
   --text-muted: #95a5a6;
   --bg-app: #FAFAFA;
   --white: #FFFFFF;
-  --nav-height: 70px;
-  --side-nav-width: 80px;
+  --danger: #FF5252;
+  --danger-soft: #FFEBEE;
+  --radius-lg: 20px;
+  --radius-md: 12px;
 }
 
 body {
@@ -21,407 +21,274 @@ body {
 }
 
 .main-container {
-  padding: 20px 24px 120px;
+  padding: 24px 20px 120px;
   max-width: 600px;
   margin: 0 auto;
 }
 
-/* Page Title */
-.page-title {
-  font-size: 20px;
-  font-weight: 700;
-  margin: 20px 0;
-}
-
-/* Profile Header */
+/* ===================== Profile Section ===================== */
 .profile-header {
   display: flex;
+  flex-direction: column;
   align-items: center;
-  gap: 15px;
-  margin-bottom: 30px;
+  text-align: center;
+  margin-bottom: 32px;
 }
 
-.avatar-circle {
-  width: 72px;
-  height: 72px;
+.avatar-wrapper {
+  position: relative;
+  width: 90px;
+  height: 90px;
+  margin-bottom: 16px;
+}
+
+.profile-img {
+  width: 100%;
+  height: 100%;
   border-radius: 50%;
-  background: #4A5568;
+  object-fit: cover;
+  border: 3px solid var(--white);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+}
+
+.edit-avatar-btn {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  background: var(--primary);
+  color: var(--white);
+  border: 2px solid var(--white);
+  border-radius: 50%;
+  width: 28px;
+  height: 28px;
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  /* No animation */
 }
 
-.profile-info {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
+.edit-avatar-btn svg {
+  width: 14px;
+  height: 14px;
 }
 
 .profile-name {
-  font-size: 18px;
+  font-size: 20px;
   font-weight: 700;
+  margin: 0 0 4px;
   color: var(--text-main);
 }
 
 .profile-email {
   font-size: 14px;
   color: var(--text-muted);
+  margin: 0 0 8px;
 }
 
-.edit-btn {
-  background: #E0E0E0;
-  border: none;
-  padding: 5px 15px;
-  border-radius: 12px;
+.profile-status {
+  background: var(--primary-soft);
+  color: var(--primary);
   font-size: 12px;
-  cursor: pointer;
-  color: var(--text-muted);
-}
-
-/* Menu Cards */
-.menu-card {
-  background: var(--white);
+  padding: 4px 12px;
   border-radius: 20px;
-  overflow: hidden;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
-  margin-bottom: 30px;
+  font-weight: 600;
 }
 
-.menu-item {
+/* ===================== Settings List ===================== */
+.settings-group {
+  margin-bottom: 24px;
+}
+
+.group-title {
+  font-size: 14px;
+  color: var(--text-muted);
+  margin: 0 0 8px 12px;
+  font-weight: 600;
+}
+
+.group-content {
+  background: var(--white);
+  border-radius: var(--radius-lg);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.02); /* Efficient shadow */
+  overflow: hidden;
+}
+
+.setting-item {
   display: flex;
   align-items: center;
-  padding: 20px;
+  justify-content: space-between;
+  padding: 16px 20px;
+  border-bottom: 1px solid #f5f5f5;
   cursor: pointer;
-  transition: background 0.2s;
-  border-bottom: 1px solid #F5F5F5;
+  background: var(--white);
+  /* No transition for instant feel */
 }
 
-.menu-item:last-child {
+.setting-item:last-child {
   border-bottom: none;
 }
 
-.menu-item:active {
-  background: #F9F9F9;
+.setting-item:hover {
+  background: #fafafa;
 }
 
-.menu-icon-box {
-  width: 40px;
-  height: 40px;
-  margin-right: 20px;
+.item-left {
   display: flex;
-  justify-content: center;
   align-items: center;
+  gap: 16px;
 }
 
-.pink-icon {
-  color: var(--primary);
+.icon-box {
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  background: var(--bg-app);
+  color: var(--text-main);
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.red-icon {
-  color: #FF4444;
+/* Destructive (Logout) Styling */
+.icon-box.destructive {
+  background: var(--danger-soft);
+  color: var(--danger);
 }
 
-.menu-text {
-  font-size: 16px;
+.item-text {
+  font-size: 15px;
   font-weight: 500;
   color: var(--text-main);
 }
 
-.menu-arrow {
-  margin-left: auto;
+.item-text.destructive-text {
+  color: var(--danger);
+  font-weight: 600;
 }
 
-/* Floating Action Button (FAB) */
-.fab-button {
-  position: fixed;
-  bottom: 110px;
-  right: 20px;
-  width: 56px;
-  height: 56px;
-  background: var(--primary);
-  color: var(--white);
-  border-radius: 50%;
-  border: none;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-  z-index: 100;
-  cursor: pointer;
+.app-version {
+  text-align: center;
+  font-size: 12px;
+  color: #ccc;
+  margin-top: 30px;
 }
 
-.fab-button:active {
-  transform: scale(0.95);
-}
+/* ===================== RESPONSIVE NAV (SYNCED) ===================== */
 
-/* Bottom Navigation */
-.bottom-nav {
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  height: 90px;
-  background: #ffffff;
-  border-radius: 30px 30px 0 0;
-  box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.08);
-  z-index: 1000;
-  padding-bottom: 15px;
-}
-
-.nav-wrapper {
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  height: 100%;
-  max-width: 500px;
-  margin: 0 auto;
-  position: relative;
-}
-
-.nav-item {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  background: none;
-  border: none;
-  color: #95a5a6;
-  gap: 6px;
-  width: 65px;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-.nav-item.active {
-  color: #E91E63;
-}
-
-.nav-item.active .nav-icon svg {
-  stroke-width: 2.5px;
-  filter: drop-shadow(0 4px 12px rgba(233, 30, 99, 0.4));
-  transform: translateY(-3px);
-}
-
-.nav-label {
-  font-size: 11px;
-  font-weight: 500;
-}
-
-.fab-container {
-  position: relative;
-  top: -25px;
-  width: 70px;
-  height: 70px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-/* 📱 Mobile Devices: 320px - 480px */
-@media (max-width: 480px) {
-  .modal-content {
-    padding: 16px 20px 20px;
-    border-radius: 20px 20px 0 0;
+/* ✅ 1. MOBILE & TABLET PORTRAIT (< 768px) + LANDSCAPE PHONES */
+@media (max-width: 767px), (max-height: 600px) and (orientation: landscape) {
+  .main-container {
+    padding: 24px 20px 120px;
+    max-width: 100%;
   }
 
-  .auth-tabs {
-    margin-bottom: 16px;
+  /* Force Horizontal Nav */
+  .bottom-nav {
+    left: 15px;
+    bottom: 15px;
+    width: calc(100% - 30px);
+    flex-direction: row !important;
+    justify-content: center !important;
+    padding: 0;
+    max-width: 500px;
+    margin: 0 auto;
+    background: var(--white);
+    height: 70px;
+    border-radius: 24px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    display: flex;
+    align-items: center;
+    z-index: 1000;
+    position: fixed;
+    transform: none;
   }
 
-  .tab-button {
-    font-size: 15px;
-    padding: 8px 16px;
+  .nav-wrapper {
+    flex-direction: row !important;
+    justify-content: space-between;
+    width: 100%;
+    padding: 0 15px;
+    align-items: center;
+    gap: 0;
   }
 
-  .form-item input {
-    padding: 11px 14px;
-    font-size: 15px;
+  .nav-item {
+    background: none;
+    border: none;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-muted);
+    cursor: pointer;
+    padding: 8px;
+    width: auto !important;
+    flex: 1;
   }
 
-  .submit-button {
-    padding: 13px;
-    font-size: 15px;
+  .nav-item.active {
+    color: var(--primary);
   }
 
-  .social-btn {
-    width: 44px;
-    height: 44px;
-  }
-
-  /* Week Calendar */
-  .week-days {
-    grid-template-columns: repeat(7, 1fr);
-  }
-
-  .day-item {
-    padding: 10px 12px;
-  }
-
-  .day-name {
-    font-size: 0.75rem;
-  }
-
-  .day-number {
-    font-size: 1rem;
+  .fab-container {
+    position: relative;
+    top: -25px;
+    width: 56px;
+    height: 56px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 0;
   }
 }
 
-/* 📱 Tablets/iPads: 481px - 768px */
-@media (min-width: 481px) and (max-width: 768px) {
-  .modal-overlay {
+/* ✅ 2. DESKTOP & LARGE TABLETS (768px+) */
+@media (min-width: 768px) and (min-height: 601px) {
+  .main-container {
+    padding-left: 120px; /* Offset for Sidebar */
+    max-width: 800px;
+    padding-top: 40px;
+  }
+
+  .profile-header {
+    flex-direction: row;
+    text-align: left;
+    gap: 20px;
+  }
+
+  .bottom-nav {
+    top: 0; left: 0; bottom: 0;
+    width: 80px; height: 100vh;
+    flex-direction: column;
+    justify-content: flex-start;
+    padding-top: 40px;
+    background: var(--white);
+    position: fixed;
+    z-index: 1000;
+  }
+  
+  .nav-wrapper { 
+    flex-direction: column; 
+    gap: 30px; 
+    justify-content: flex-start;
     align-items: center;
   }
-
-  .modal-content {
-    border-radius: var(--radius-lg);
-    padding: 28px 32px;
+  
+  .fab-container { 
+    top: 0; 
+    order: -1; 
+    margin-bottom: 40px; 
   }
 
-  .modal-handle {
-    display: none;
+  .nav-item {
+    padding: 10px;
+    color: var(--text-muted);
   }
 
-  .week-days {
-    grid-template-columns: repeat(7, 1fr);
-  }
-
-  .day-item {
-    padding: 12px 16px;
-  }
-
-  .day-name {
-    font-size: 0.85rem;
-  }
-
-  .day-number {
-    font-size: 1.1rem;
+  .nav-item.active {
+    color: var(--primary);
+    background: var(--primary-soft);
+    border-radius: 12px;
   }
 }
-
-/* 💻 Laptops/Small Screens: 769px - 1024px */
-@media (min-width: 769px) {
-  .modal-overlay {
-    align-items: center;
-  }
-
-  .modal-content {
-    border-radius: var(--radius-lg);
-    padding: 32px 40px;
-    max-width: 440px;
-  }
-
-  .modal-handle {
-    display: none;
-  }
-
-  .tab-button:hover {
-    color: var(--active-text);
-  }
-
-  .social-btn:hover {
-    transform: scale(1.08);
-  }
-
-  .week-days {
-    grid-template-columns: repeat(7, 1fr);
-  }
-
-  .day-item {
-    padding: 12px 16px;
-  }
-
-  .day-name {
-    font-size: 0.9rem;
-  }
-
-  .day-number {
-    font-size: 1.2rem;
-  }
-}
-
-/* 🖥️ Desktops/Large Screens: 1025px - 1200px */
-@media (min-width: 1025px) {
-  .modal-content {
-    max-width: 460px;
-    padding: 36px 44px;
-  }
-
-  .week-days {
-    grid-template-columns: repeat(7, 1fr);
-  }
-
-  .day-item {
-    padding: 12px 20px;
-  }
-
-  .day-name {
-    font-size: 1rem;
-  }
-
-  .day-number {
-    font-size: 1.5rem;
-  }
-}
-
-/* 🖥️ Extra-Large Devices: 1201px+ */
-@media (min-width: 1201px) {
-  .modal-content {
-    max-width: 480px;
-    padding: 40px 48px;
-  }
-}
-
-/* ✅ Landscape Mode (จอแนวนอนเตี้ย) */
-@media (max-height: 600px) and (orientation: landscape) {
-  .modal-content {
-    max-height: 85vh;
-    padding: 12px 20px 16px;
-  }
-
-  .modal-handle {
-    margin-bottom: 12px;
-  }
-
-  .auth-tabs {
-    margin-bottom: 12px;
-  }
-
-  .input-group {
-    gap: 10px;
-  }
-
-  .form-item input {
-    padding: 9px 12px;
-    font-size: 14px;
-  }
-
-  .submit-button {
-    padding: 11px;
-    font-size: 15px;
-  }
-
-  .social-btn {
-    width: 40px;
-    height: 40px;
-  }
-}
-
-/* ✅ High DPI Screens (Retina) */
-@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
-  .modal-content {
-    box-shadow: 0 -8px 32px rgba(0,0,0,0.08);
-  }
-}
-
-/* ✅ Prefers Reduced Motion - Accessibility */
-@media (prefers-reduced-motion: reduce) {
-  *,
-  *::before,
-  *::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-  }
-}
-
