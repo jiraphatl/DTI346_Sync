@@ -5,6 +5,7 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-d
 import LogoPage from './components/LogoPage';
 import AboutUS from './components/AboutUSPage';
 import HomePage from './components/HomePage';
+import Setting from './components/Setting'; // 1. เพิ่มบรรทัดนี้ (ตรวจสอบ path ให้ถูกว่าไฟล์อยู่ไหน)
 
 function App() {
   const [user, setUser] = useState(null);
@@ -57,6 +58,18 @@ function App() {
           } 
         />
 
+        <Route 
+          path="/settings" 
+          element={
+            user ? (
+              // --- แก้ไขตรงนี้: ส่ง user และ onLogout เข้าไป ---
+              <Setting user={user} onLogout={handleLogout} /> 
+              // ---------------------------------------------
+            ) : (
+              <Navigate to="/" replace />
+            )
+          } 
+        />
         {/* Redirect เส้นทางอื่นๆ กลับหน้าแรก */}
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>

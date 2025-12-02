@@ -1,4 +1,5 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';  // ใช้ navigate สำหรับการเปลี่ยนหน้า
 import './HomePage.css';
 import FloatingActionMenu from './FloatingActionMenu';
 
@@ -16,6 +17,7 @@ const Icons = {
 function HomePage({ user, onLogout }) {
   const [selectedDay, setSelectedDay] = useState(10); // Default เลือกวันที่ 10
   const [activeTab, setActiveTab] = useState('home');
+  const navigate = useNavigate(); // ใช้ navigate เพื่อเปลี่ยนหน้า
 
   const handleCreateOnlineMeeting = () => {
     console.log('สร้างนัดหมายออนไลน์');
@@ -36,12 +38,8 @@ function HomePage({ user, onLogout }) {
         <div className="header-content">
           <div className="user-greeting">
             <div className="avatar-circle">
-              <img 
-                src={`https://api.dicebear.com/7.x/avataaars/svg?seed=${user?.username || 'user'}`} 
-                alt="avatar" 
-                loading="lazy" 
-              />
-            </div>
+          <img src={`https://ui-avatars.com/api/?name=${user?.name}&background=random`} alt="Profile" />
+        </div>
             <div>
               <h3>สวัสดี, {user?.name || 'นักศึกษา'}</h3>
               <p className="subtitle">มีความสุขกับวันนี้นะ!</p>
@@ -81,22 +79,32 @@ function HomePage({ user, onLogout }) {
         {/* Timeline */}
         <div className="timeline-container">
           <h3 className="timeline-header">กำหนดการวันนี้</h3>
-          
-          {/* แสดงงานที่เลือก */}
-        </div>
+                  </div>
       </div>
 
       {/* Bottom Navigation */}
       <nav className="bottom-nav">
         <div className="nav-wrapper">
-          <button className={`nav-item ${activeTab === 'home' ? 'active' : ''}`} onClick={() => setActiveTab('home')}>
+          <button 
+            className={`nav-item ${activeTab === 'home' ? 'active' : ''}`} 
+            onClick={() => {
+              setActiveTab('home');
+              navigate('/home'); 
+            }}
+          >
             <span className="nav-icon"><Icons.Home /></span>
-            <span className="nav-label">หน้าหลัก</span>
+            <span className="nav-label"></span>
           </button>
 
-          <button className={`nav-item ${activeTab === 'bell' ? 'active' : ''}`} onClick={() => setActiveTab('bell')}>
+          <button 
+            className={`nav-item ${activeTab === 'bell' ? 'active' : ''}`} 
+            onClick={() => {
+              setActiveTab('bell');
+              navigate('/notifications'); 
+            }}
+          >
             <span className="nav-icon"><Icons.Bell /></span>
-            <span className="nav-label">แจ้งเตือน</span>
+            <span className="nav-label"></span>
           </button>
 
           <div className="fab-container">
@@ -107,14 +115,26 @@ function HomePage({ user, onLogout }) {
             />
           </div>
 
-          <button className={`nav-item ${activeTab === 'calendar' ? 'active' : ''}`} onClick={() => setActiveTab('calendar')}>
+          <button 
+            className={`nav-item ${activeTab === 'calendar' ? 'active' : ''}`} 
+            onClick={() => {
+              setActiveTab('calendar');
+              navigate('/calendar'); 
+            }}
+          >
             <span className="nav-icon"><Icons.Calendar /></span>
-            <span className="nav-label">ปฏิทิน</span>
+            <span className="nav-label"></span>
           </button>
 
-          <button className={`nav-item ${activeTab === 'profile' ? 'active' : ''}`} onClick={() => setActiveTab('profile')}>
+          <button 
+            className={`nav-item ${activeTab === 'settings' ? 'active' : ''}`} 
+            onClick={() => {
+              setActiveTab('settings');
+              navigate('/settings'); 
+            }}
+          >
             <span className="nav-icon"><Icons.User /></span>
-            <span className="nav-label">โปรไฟล์</span>
+            <span className="nav-label"></span>
           </button>
         </div>
       </nav>
