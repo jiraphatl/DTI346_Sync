@@ -89,14 +89,10 @@
   background: #ff6fa3; 
 }
 
-/* ==========================================================================
-   ✅ DESKTOP / SIDEBAR FIX (UPDATED)
-   When screen is large, the menu opens to the RIGHT of the sidebar.
-   ==========================================================================
-*/
+
 @media (min-width: 768px) and (min-height: 601px) {
   .fab-menu {
-    bottom: auto;    /* Reset bottom */
+    bottom: auto;    
     top: 0;          /* Align with top of the main button */
     left: 75px;      /* Move it 75px to the RIGHT */
     

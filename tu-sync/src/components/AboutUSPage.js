@@ -2,35 +2,29 @@ import React, { useState, useEffect, useMemo, useCallback, Suspense } from 'reac
 import './AboutUSPage.css';
 
 const AuthModal = React.lazy(() => import('./AuthModal'));
-const BASE_PATH = '/img/';
 
 const AboutUS = ({ onLoginSuccess, onRegisterSuccess }) => {
   const [currentPage, setCurrentPage] = useState(0);
   const [showAuthModal, setShowAuthModal] = useState(false);
 
-  // Cache slide data
   const slides = useMemo(
     () => [
       {
-        image: `${BASE_PATH}slide1.png`,
         title: 'จัดระเบียบงานและเรียนรู้ได้ง่าย',
-        highlight: 'Task Sync',
+        highlight: 'TU-Sync',
         description: 'แพลตฟอร์มช่วยจัดการตารางงาน การบ้าน และการแจ้งเตือนให้ครบถ้วน',
       },
       {
-        image: `${BASE_PATH}slide2.png`,
         title: 'ทำงานร่วมกันได้ลื่นไหล',
         highlight: 'ทีมเวิร์กดีกว่า',
         description: 'แชร์งาน ติดตามสถานะ และแจ้งเตือนเพื่อนร่วมทีมแบบเรียลไทม์',
       },
       {
-        image: `${BASE_PATH}slide3.png`,
         title: 'โฟกัสในสิ่งสำคัญ',
         highlight: 'แจ้งเตือนตรงเวลา',
         description: 'รวมการแจ้งเตือนจากทุกงาน ทุกวิชา ไว้ที่เดียว ไม่พลาดเดดไลน์',
       },
       {
-        image: `${BASE_PATH}slide4.png`,
         title: 'เริ่มต้นง่าย ปรับแต่งได้',
         highlight: 'พร้อมใช้งาน',
         description: 'ปรับตารางงาน ใส่หมวดหมู่ และเชื่อมกับกิจกรรมของคุณในไม่กี่คลิก',
@@ -39,7 +33,6 @@ const AboutUS = ({ onLoginSuccess, onRegisterSuccess }) => {
     []
   );
 
-  // Smart preloading: โหลดภาพของสไลด์ถัดไป
   useEffect(() => {
     if (currentPage < slides.length - 1) {
       const nextImage = new Image();
@@ -67,18 +60,7 @@ const AboutUS = ({ onLoginSuccess, onRegisterSuccess }) => {
   return (
     <div className="about-us-container">
       <div className="content-wrapper">
-        <div className="illustration-container">
-          <img
-            src={slides[currentPage].image}
-            alt={`Slide ${currentPage + 1}`}
-            className="slide-image"
-            fetchPriority="high"
-            loading="eager"
-            width="350"
-            height="350"
-          />
-        </div>
-
+          
         <div className="text-content">
           <h1 className="slide-title">
             {slides[currentPage].title}
